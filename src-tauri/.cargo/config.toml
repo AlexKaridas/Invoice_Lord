@@ -1,0 +1,12 @@
+[build]
+# Custom build target dir (optional)
+target-dir = "target"
+
+[unstable]
+# Ignore specific SQLite file and related temp files
+exclude = [
+  "products_database.sqlite",
+  "products_database.sqlite-journal",
+  "products_database.db-shm",
+  "products_database.db-wal"
+]
