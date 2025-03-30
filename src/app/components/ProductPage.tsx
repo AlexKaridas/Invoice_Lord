@@ -91,7 +91,6 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     setEdit(false);
   }
 
-
   return (
     <div className="relative min-h-[600px] w-full flex items-start justify-center items-start p-4">
       <div className="w-full max-w-xl bg-gray-900 rounded-2xl overflow-hidden sticky top-4">
@@ -110,7 +109,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
         </div>
         <div className="p-6 space-y-4">
           <div className="flex flex-row-reverse w-full justify-between">
-            <button onClick={() => setEdit(!edit)} className="flex items-center justify-center text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
+            <button onClick={() => {
+              setEdit(!edit), setCategory({
+                name: false,
+                description: false,
+                price: false
+              }
+              )
+            }
+            } className="flex items-center justify-center text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
               <span className="leading-none">Edit</span>
             </button>
             {!edit ?
@@ -119,27 +126,34 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               </h1>
               : <div className="relative w-full">
                 <button onClick={() => change_state('name')} className=" ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700 text-2xl font-bold text-gray-100"> {!category.name && name} </button>
-                {category.name && <Input placeholder={name} />}
+                {category.name && <Input category={"price"} placeholder={name} />}
               </div>
             }
           </div>
           {edit ?
-            <div className="flex flex-col gap-5 items-start justify-center ">
-              <button className="ease-in-out duration-100 text-gray-400 text-left leading-relaxed active:bg-gray-900 hover:bg-gray-700">
+            <div className="relative flex flex-col gap-5 items-start justify-center ">
+              <button onClick={() => change_state('description')} className="ease-in-out duration-100 text-gray-400 text-left leading-relaxed active:bg-gray-900 hover:bg-gray-700">
                 `{product?.description}`
               </button>
-              <button className="ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
-                `${product?.price.toFixed(2)}`
-              </button>
+              {category.description && <Input category={"price"} placeholder={product.description} />}
             </div>
             :
             <div>
               <p className="text-gray-400 leading-relaxed">
                 {product?.description}
               </p>
-              <p className="text-xl font-semibold text-blue-300">
-                ${product?.price.toFixed(2)}
-              </p>
+            </div>
+          }
+          {!edit ?
+            <p className="text-xl font-semibold text-blue-300">
+              ${product?.price.toFixed(2)}
+            </p>
+            :
+            <div className="relative flex flex-col gap-5 items-start justify-center ">
+              <button onClick={() => change_state('price')}className="my-2 mx-1 ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
+                `${product?.price.toFixed(2)}`
+              </button>
+              {category.price && <Input category={"price"} placeholder={product.price.toString()} />}
             </div>
           }
           <div className="w-full flex flex-row gap-5">
