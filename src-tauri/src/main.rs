@@ -1,14 +1,15 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use rusqlite::{params, types::ToSqlOutput, Connection, Error, ErrorCode, Result, ToSql};
+use rusqlite::{params, types::ToSqlOutput, Connection, Result, ToSql};
 use serde::{Deserialize, Serialize};
 use std::{
-    fs::{read, File},
-    io::{BufRead, BufReader, ErrorKind, Read},
+    fs::File,
+    io::{BufRead, BufReader, ErrorKind},
 };
-use tauri::{command, generate_handler, State};
+use tauri::{command, generate_handler};
 
 #[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
 enum ProductValue {
     Int(i32),
     Text(String),
@@ -41,11 +42,11 @@ fn main() {
 }
 
 //TODO:
-// Edit products
-// Insert extra products
+// Also edit product quantity
+// Insert a new product
 // Remove a product entirely
-// Additional welcome screen and description screen
-// Starting window size change
+// Additional welcome screen and description screen --Done
+// Starting window size change --Done
 // Final: Able to drag and drop a file inside and
 // add or replace products and their attributes from the file
 
@@ -82,31 +83,42 @@ fn number_of_tables(database: &Connection) -> usize {
 #[command]
 fn edit_product(product_id: i32, category: String, value: ProductValue) {
     println!("\nUser asked to edit product\n");
+    println!(
+        "\nproduct_id:{product_id},category:{category},value:{:?}\n",
+        value
+    );
 
     let mut db = db_start();
-    let update_query = format!(
-        "UPDATE products SET {} = ? WHERE product_id = {}",
-        category, product_id
-    );
 
-    let _show_query = format!(
-        "SELECT {} FROM products WHERE product_id = {}",
-        category, product_id
-    );
+    let new_value: String = match value {
+        ProductValue::Text(ref inner_string) => {
+            println!("{inner_string}");
+            inner_string.to_string()
+        }
+        ProductValue::Int(number) => {
+            println!("{number}");
+            number.to_string()
+        }
+    };
 
+    let update_query = format!("UPDATE products SET {} = ? WHERE product_id = ?", category);
     let transaction = db
         .transaction()
         .expect("Failed to establish sql transaction in checkout");
 
-    let mut prepare = transaction
-        .prepare(&update_query)
-        .expect("Failed to prepare query for rows in checkout");
+    {
+        let mut prepare = transaction
+            .prepare(&update_query)
+            .expect("Failed to prepare query for rows in checkout");
 
-    prepare
-        .execute([value])
-        .expect("Failed to execute transaction");
+        prepare
+            .execute(params![new_value, product_id])
+            .expect("Failed to execute transaction");
+    }
 
-    println!("\nProduct edit successfull for product:{product_id} and {category}\n");
+    transaction.commit().expect("Failed to commit transaction in edit_product");
+
+    println!("\nProduct edit product:{product_id} and {category}\n");
 }
 
 fn insert_product(db: &Connection, product: &Product) -> Result<(), rusqlite::Error> {
@@ -174,7 +186,7 @@ fn main_initialize() -> Vec<Product> {
     let db = db_start();
     let number_of_tables: usize = number_of_tables(&db);
 
-    println!("\nNumbertables:{number_of_tables}");
+    //println!("\nNumbertables:{number_of_tables}");
 
     if number_of_tables == 0 {
         println!("\nTable product does not exist, initializing it now.");

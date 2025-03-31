@@ -12,6 +12,8 @@ interface ProductPageProps {
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>
   isCartOpen: boolean
   setCheckout: React.Dispatch<React.SetStateAction<boolean>>
+  setEditSubmit: React.Dispatch<React.SetStateAction<boolean>>
+  edit_submit: boolean
 }
 
 type CategoryState = {
@@ -20,34 +22,41 @@ type CategoryState = {
   price: boolean,
 }
 
-export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout }: ProductPageProps) {
+export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, edit_submit, setEditSubmit }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
-  const [submit, setSubmit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
     description: false,
     price: false
   });
-  const [value, setValue] = useState<String | number>('');
+  const [value, setValue] = useState<string | number>('');
 
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
 
   useEffect(() => {
     edit_product();
-  }, [submit])
+  }, [edit_submit])
 
   async function edit_product() {
+    let true_category = find_true_key(category);
     try {
-      if (submit == true) {
-        await invoke<any>('edit_product', { productId: product.product_id, category: category, value: value })
-          .then()
-          .catch(console.error)
+      if (edit_submit == true) {
+        const response = await invoke('edit_product', { productId: product.product_id, category: true_category, value: value });
+        console.log("Response from Rust:", response);
       }
-      setSubmit(false);
+      console.log("\nCategory:", true_category, " value: ", value, " typeof: ", typeof (value));
+      setEditSubmit(false);
+      clean();
     } catch (error) {
       console.error(error);
+      console.log("\nCategory:", true_category, " Value: ", value, " typeof: ", typeof (value));
     }
 
+  }
+
+  function find_true_key(obj: CategoryState) {
+    const entry = Object.entries(obj).find(([key, value]) => value === true);
+    return entry ? entry[0] : null;
   }
 
   function addToCart(product: cart_product) {
@@ -75,13 +84,19 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   }
 
   function change_state(key: keyof CategoryState) {
-    setCategory((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }))
+    setCategory((prev) => {
+      const new_state = { ...prev, [key]: true };
+
+      Object.keys(new_state).forEach((prop) => {
+        if (prop !== key) {
+          new_state[prop] = false;
+        }
+      })
+      return new_state;
+    })
   };
 
-  function on_cancel() {
+  function clean() {
     setCategory({
       name: false,
       description: false,
@@ -126,7 +141,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               </h1>
               : <div className="relative w-full">
                 <button onClick={() => change_state('name')} className=" ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700 text-2xl font-bold text-gray-100"> {!category.name && name} </button>
-                {category.name && <Input category={"price"} placeholder={name} />}
+                {category.name && <Input category={"price"} placeholder={name} setValue={setValue} />}
               </div>
             }
           </div>
@@ -135,7 +150,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               <button onClick={() => change_state('description')} className="ease-in-out duration-100 text-gray-400 text-left leading-relaxed active:bg-gray-900 hover:bg-gray-700">
                 `{product?.description}`
               </button>
-              {category.description && <Input category={"price"} placeholder={product.description} />}
+              {category.description && <Input category={"price"} placeholder={product.description} setValue={setValue} />}
             </div>
             :
             <div>
@@ -150,10 +165,10 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             </p>
             :
             <div className="relative flex flex-col gap-5 items-start justify-center ">
-              <button onClick={() => change_state('price')}className="my-2 mx-1 ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
+              <button onClick={() => change_state('price')} className="my-2 mx-1 ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
                 `${product?.price.toFixed(2)}`
               </button>
-              {category.price && <Input category={"price"} placeholder={product.price.toString()} />}
+              {category.price && <Input category={"price"} placeholder={product.price.toString()} setValue={setValue} />}
             </div>
           }
           <div className="w-full flex flex-row gap-5">
@@ -189,20 +204,22 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
 
               <div className="w-full flex flex-row gap-5">
                 <button
-                  onClick={() => console.log('click')}
+                  onClick={() => { setEditSubmit(true) }}
                   type="submit"
-                  className="
-          w-full bg-green-600 text-white font-medium py-3 rounded-lg 
-          shadow-md transition duration-300 ease-in-out
-              hover:bg-green-700 hover:shadow-lg 
-              focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
-              active:bg-green-800
-            "
+                  className={`w-full text-white font-medium py-3 rounded-lg 
+  shadow-md transition duration-300 ease-in-out 
+  hover:bg-green-700 hover:shadow-lg 
+  focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 
+  active:bg-green-800 
+  ${(!category.name && !category.description && !category.price)
+                      ? "cursor-not-allowed pointer-events-none bg-gray-700"
+                      : "cursor-pointer bg-green-600"
+                    }`}
                 >
                   Ok
                 </button>
                 <button
-                  onClick={() => on_cancel()}
+                  onClick={() => clean()}
                   className="
           w-full bg-red-600 text-white font-medium py-3 rounded-lg 
           shadow-md transition duration-300 ease-in-out

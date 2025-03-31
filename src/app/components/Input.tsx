@@ -1,68 +1,46 @@
-import { useState } from "react";
+import { useState, SetStateAction, Dispatch, FormEvent, ChangeEvent } from "react";
 
-export default function Input({ category, placeholder }: { category: string, placeholder: string }) {
-  const [input_value, setInputValue] = useState('');
-  const [price, setPrice] = useState(0);
+export default function Input({ category, placeholder, setValue }: { category: string, placeholder: string, setValue: Dispatch<SetStateAction<number | string>> }) {
+  const [input_value, setInputValue] = useState<string>('');
 
-  function handle_change(event) {
+  function handle_change(event: ChangeEvent<HTMLInputElement>) {
     setInputValue(event.target.value);
   }
 
-  function handle_submit(event) {
-    event.preventDefault();
-    console.log("Submited value: ", input_value);
+  function handle_submit(event: FormEvent<HTMLFormElement>) {
+    try {
+      event.preventDefault();
+      setValue(input_value);
+      console.log("\nValue for:", category, ":", input_value, ' submitted');
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  function increment() {
-    setPrice((prev) => prev + 1);
-  }
-  function decrement() {
-    setPrice((prev) => (prev > 0 ? prev - 1 : 0));
-  }
-
-
-  if (category == "title" || "description") {
+  const OkButton = () => {
     return (
-      <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
-        <form onSubmit={handle_submit} className="flex flex-row gap-1 bg-gray-900 shadow-xl w-full max-w-xl h-full">
-          <input
-            type="text"
-            maxLength={1000}
-            placeholder={placeholder}
-            value={input_value}
-            onChange={handle_change}
-            className="w-full mr-5 px-4 pt-2 pb-0 text-lg text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-          />
-        </form>
-      </div>
-    )
-  } else {
-    <div className="absolute inset-0 flex items-center justify-center w-1/2 h-full z-50 backdrop-blur-lg">
-      <form
-        onSubmit={handle_submit}
-        className="flex flex-row gap-2 bg-gray-900 shadow-xl p-4 rounded-lg max-w-xl"
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-2 py-1 rounded-md text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-sm transition font-medium active:bg-blue-700 active:scale-95 whitespace-nowrap"
       >
-        <button
-          type="button"
-          onClick={decrement}
-          className="px-3 py-2 text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition"
-        >
-          -
-        </button>
+        OK
+      </button>
+    );
+  };
+
+  return (
+    <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
+      <form onSubmit={handle_submit} className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full max-w-xl h-full">
         <input
-          type="number"
-          value={price}
+          type="text"
+          maxLength={1000}
+          placeholder={placeholder}
+          value={input_value}
           onChange={handle_change}
-          className="w-24 px-4 py-2 text-lg text-white bg-gray-800 border-none focus:outline-none text-center"
+          className="w-full mr-5 px-2 py-4 text-2xl text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
         />
-        <button
-          type="button"
-          onClick={increment}
-          className="px-3 py-2 text-white bg-gray-700 rounded-lg hover:bg-gray-600 transition"
-        >
-          +
-        </button>
+        <OkButton />
       </form>
     </div>
-  }
+  )
 }
