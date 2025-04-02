@@ -7,7 +7,7 @@ import EmptyState from '../components/EmptyState';
 import cart_product from "../types";
 import Checkout from '../components/Chekout';
 
-export default function products_screen() {
+export default function Products() {
   const [result, setResult] = useState<Product[] | null>(null);
   const [selected, setSelected] = useState<Product | null>(null);
   const [cart, setCart] = useState<cart_product[]>([]);
@@ -20,7 +20,7 @@ export default function products_screen() {
     invoke<Product[]>('main_initialize')
       .then(result => setResult(result))
       .catch(console.error)
-  }, [])
+  }, [edit_submit])
 
   useEffect(() => {
     update_quantity()
@@ -52,26 +52,20 @@ export default function products_screen() {
       switch (sorting) {
         case 0: {
           console.log("\nSorting by name");
-          setResult(prevResult => {
-            const products_array: Product[] | null = Object.values(prevResult).slice().sort((a, b) => a.name.localeCompare(b.name));
-            return products_array;
-          });
+          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.name.localeCompare(b.name));
+          setResult(products_array);
           break;
         }
         case 1: {
           console.log("\nSorting by price");
-          setResult(prevResult => {
-            const products_array: Product[] | null = Object.values(prevResult).sort((a, b) => a.price - b.price);
-            return products_array;
-          });
+          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.price - b.price);
+          setResult(products_array);
           break;
         }
         case 2: {
           console.log("\nSorting by quantity");
-          setResult(prevResult => {
-            const products_array: Product[] | null = Object.values(prevResult).sort((a, b) => a.quantity - b.quantity);
-            return products_array;
-          })
+          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.quantity - b.quantity);
+          setResult(products_array);
         }
       };
     } else {
@@ -87,7 +81,7 @@ export default function products_screen() {
     <div className="py-12 min-h-screen 
       px-4 sm:px-6 lg:px-8 
       sm:py-12 lg:py-16 
-      max-w-7xl mx-auto bg-black">
+      max-w-7xl mx-auto">
       <div className="flex flex-col w-full min-h-screen">
         <h1 className="text-4xl font-extrabold text-center pb-10 text-gray-100">
           Products
