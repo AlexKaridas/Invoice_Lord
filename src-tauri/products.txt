@@ -14,78 +14,47 @@ Image: https://images.unsplash.com/photo-1551645120-d70bfe84c826?q=80&w=1335&aut
 Description: A powerful laptop with Apple's M3 Max chip, a stunning Liquid Retina XDR display, and all-day battery life, perfect for professionals.  
 Price: $3,499.00  
 Quantity: 3  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1526925712774-2833a7ecd0d4?q=80&w=1274&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D  
-=======
-Image: https://example.com/apple-macbook-pro-16-m3-max-2023.jpg  
->>>>>>> d8ede4d (First milestone)
 
 4.Name: Sony WH-1000XM5 Wireless Headphones  
 Description: Noise-canceling over-ear headphones with exceptional audio quality, long battery life, and adaptive sound control for a premium listening experience.  
 Price: $399.99  
 Quantity: 15  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1577174881658-0f30ed549adc?q=80&w=1320&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 
-=======
-Image: https://example.com/sony-wh-1000xm5-wireless-headphones.jpg  
->>>>>>> d8ede4d (First milestone)
 
 5.Name: Raspberry Pi 5 (8GB RAM)  
 Description: A compact and versatile single-board computer with a quad-core processor, improved performance, and extensive connectivity options.  
 Price: $79.99  
 Quantity: 20  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1578320982011-87ce8736dd93?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-=======
-Image: https://example.com/raspberry-pi-5-8gb-ram.jpg  
->>>>>>> d8ede4d (First milestone)
 
 6.Name: Anker 737 Power Bank (24,000mAh, 140W)  
 Description: A high-capacity portable charger with fast-charging capabilities, multiple ports, and smart power distribution for all your devices.  
 Price: $129.99  
 Quantity: 8  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D   
-=======
-Image: https://example.com/anker-737-power-bank-24000mah-140w.jpg  
->>>>>>> d8ede4d (First milestone)
 
 7.Name: Corsair K100 RGB Mechanical Gaming Keyboard  
 Description: A premium gaming keyboard featuring optical-mechanical switches, dynamic per-key RGB lighting, and programmable macro support.  
 Price: $229.99  
 Quantity: 12  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1602025882379-e01cf08baa51?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D   
-=======
-Image: https://example.com/corsair-k100-rgb-mechanical-gaming-keyboard.jpg  
->>>>>>> d8ede4d (First milestone)
 
 8.Name: Google Nest Learning Thermostat (3rd Gen)  
 Description: A smart thermostat that learns your schedule, optimizes energy use, and integrates with smart home systems.  
 Price: $249.99  
 Quantity: 6  
-<<<<<<< HEAD
 Image: https://plus.unsplash.com/premium_photo-1733342509106-aed8ca005410?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-=======
-Image: https://example.com/google-nest-learning-thermostat-3rd-gen.jpg  
->>>>>>> d8ede4d (First milestone)
 
 9.Name: DJI Mini 4 Pro Drone  
 Description: A compact, lightweight drone with 4K HDR video, intelligent flight modes, and obstacle avoidance, perfect for aerial photography.  
 Price: $999.00  
 Quantity: 4  
-<<<<<<< HEAD
 Image: https://plus.unsplash.com/premium_photo-1714618849685-89cad85746b1?q=80&w=1288&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
-=======
-Image: https://example.com/dji-mini-4-pro-drone.jpg
->>>>>>> d8ede4d (First milestone)
 
 10.Name: Crucial T700 2TB Gen5 NVMe SSD  
 Description: A high-speed PCIe Gen5 SSD with blazing-fast read/write speeds, ideal for gaming and professional workloads.  
 Price: $349.99  
 Quantity: 10  
-<<<<<<< HEAD
 Image: https://images.unsplash.com/photo-1720048169387-84bbb8fd8ec9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 
-=======
-Image: https://example.com/crucial-t700-2tb-gen5-nvme-ssd.jpg  
->>>>>>> d8ede4d (First milestone)
+

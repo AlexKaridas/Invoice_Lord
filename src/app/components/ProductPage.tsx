@@ -34,7 +34,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
 
   useEffect(() => {
-    edit_product();
+    edit_submit && edit_product();
   }, [edit_submit])
 
   async function edit_product() {

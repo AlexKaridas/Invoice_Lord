@@ -48,7 +48,7 @@ fn main() {
 // Additional welcome screen and description screen --Done
 // Starting window size change --Done
 // Final: Able to drag and drop a file inside and
-// add or replace products and their attributes from the file
+// Add or replace products and their attributes from the file
 
 fn db_start() -> Connection {
     println!("\nDatabase connection opening\n");
@@ -82,11 +82,7 @@ fn number_of_tables(database: &Connection) -> usize {
 
 #[command]
 fn edit_product(product_id: i32, category: String, value: ProductValue) {
-    println!("\nUser asked to edit product\n");
-    println!(
-        "\nproduct_id:{product_id},category:{category},value:{:?}\n",
-        value
-    );
+    println!("\nEditing product");
 
     let mut db = db_start();
 
@@ -116,9 +112,9 @@ fn edit_product(product_id: i32, category: String, value: ProductValue) {
             .expect("Failed to execute transaction");
     }
 
-    transaction.commit().expect("Failed to commit transaction in edit_product");
-
-    println!("\nProduct edit product:{product_id} and {category}\n");
+    transaction
+        .commit()
+        .expect("Failed to commit transaction in edit_product");
 }
 
 fn insert_product(db: &Connection, product: &Product) -> Result<(), rusqlite::Error> {
