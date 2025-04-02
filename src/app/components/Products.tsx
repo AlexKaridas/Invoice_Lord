@@ -2,10 +2,11 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
 import Product from '../types';
-import ProductPage from '../components/ProductPage';
-import EmptyState from '../components/EmptyState';
+import ProductPage from './ProductPage';
+import EmptyState from './EmptyState';
 import cart_product from "../types";
 import Checkout from '../components/Chekout';
+import ProductCard from './ProductCard';
 
 export default function Products() {
   const [result, setResult] = useState<Product[] | null>(null);
@@ -73,7 +74,6 @@ export default function Products() {
     }
   }
 
-
   // JavaScript doesn't have a dedicated type for arrays; instead, it uses objects with numeric keys and a length property to simulate array behavior. 
   // console.log("type:", Array.isArray(products_array));
 
@@ -86,60 +86,41 @@ export default function Products() {
         <h1 className="text-4xl font-extrabold text-center pb-10 text-gray-100">
           Products
         </h1>
-        <div className="flex w-full flex-grow z-0">
-          <div className="w-1/3 rounded-md overflow-hidden">
-            <div className="flex flex-row justify-between ease-in-out duration-200 items-center border border-blue-400 rounded-xl">
-              <button onClick={() => sort_products(0)} className="flex w-full ease-in-out duration-200 text-center rounded-l-xl items-center justify-center border-r border-blue-400 hover:bg-blue-800">
-                <h1>Name</h1>
-              </button>
-              <button onClick={() => sort_products(1)} className="flex w-full text-center ease-in-out duration-200 items-center justify-center hover:bg-blue-800 border-r border-blue-400">
-                <h1>Price</h1>
-              </button>
-              <button onClick={() => sort_products(2)} className="flex w-full text-center ease-in-out duration-200 rounded-r-xl items-center justify-center hover:bg-blue-800">
-                <h1>Quantity</h1>
-              </button>
-            </div>
-            <div className="space-y-0">
-              {result?.map((product) => (
-                <button
-                  onClick={() => setSelected(product)}
-                  key={product.product_id}
-                  className="
-                    flex flex-col m-2 z-10 rounded-sm w-full h-34 items-start p-4
-                    hover:bg-gray-900
-                    active:border-blue-500 active:bg-gray-900 active:ring-1 active:ring-blue-300
-                    transition duration-200 ease-in-out
-                    focus:outline-none focus:ring-2 focus:ring-blue-400
-                  "
-                >
-                  <div className="w-full relative flex flex-row items-start gap-2">
-                    <h1 className="text-xl">
-                      {product.product_id}.
-                    </h1>
-                    <h3 className="text-lg font-semibold text-gray-100 text-left">
-                      {product.name.replace(/[^a-zA-Z0-9\s]/g, "")}
-                    </h3>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-100 text-left">
-                  </h3>
-
-                  <div className="flex flex-row gap-2">
-                    <p className="text-gray-400">Price:
-                      <span className="pl-1 text-green-300">${product.price.toFixed(2)}</span>
-                    </p>
-                    <p className="text-gray-400">Quantity: <span className="text-blue-400">{product.quantity}
-                    </span>
-                    </p>
-                  </div>
-                </button>
-              ))}
-            </div>
+        <div className="flex flex-col w-full flex-grow z-0">
+          <div className="flex flex-row justify-between rounded-lg border-2 border-stone-700 bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden rounded-lg mb-5 overflow-hidden shadow-md dark:shadow-none dark:bg-gray-800">
+            <button
+              onClick={() => sort_products(0)}
+              className="flex w-full text-center ease-in-out duration-200 items-center justify-center z-10 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 "
+            >
+              <h1 className="text-lg font-semibold text-stone-200">Name</h1>
+            </button>
+            <button
+              onClick={() => sort_products(1)}
+              className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border-l border-stone-700 border-r"
+            >
+              <h1 className="text-lg font-semibold text-stone-200">Price</h1>
+            </button>
+            <button
+              onClick={() => sort_products(2)}
+              className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <h1 className="text-lg font-semibold text-stone-200">Quantity</h1>
+            </button>
           </div>
-          <div className="relative w-2/3 h-full relative pl-6">
+
+          <div className="w-full grid grid-cols-3 gap-5">
+            {result?.map((product) => (
+              <ProductCard product={product} setSelected={setSelected} dark_mode={true} />
+            ))}
+          </div>
+          <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'
+            }`}>
             {selected ? (
-              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} />
+              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} setSelected={setSelected} />
             ) : (
-              <EmptyState />
+              <div className="min-h-screen flex items-center justify-center">
+                <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
+              </div>
             )}
           </div>
           {checkout ? <Checkout setSubmit={setSubmit} setCheckout={setCheckout} /> : null}
@@ -148,3 +129,6 @@ export default function Products() {
     </div>
   )
 }
+
+
+
