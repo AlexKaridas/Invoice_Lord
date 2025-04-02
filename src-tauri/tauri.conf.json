@@ -59,7 +59,11 @@
         "height": 600,
         "resizable": true,
         "title": "Invoice Lord",
-        "width": 800
+        "width": 1200,
+        "maxWidth": 2000,
+        "minWidth": 500,
+        "theme": "Dark",
+        "center": true
       }
     ]
   }
