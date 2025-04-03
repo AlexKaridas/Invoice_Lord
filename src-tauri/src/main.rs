@@ -155,6 +155,10 @@ fn welcome_screen() -> i32 {
 }
 
 fn number_of_tables(table_name: String, database: &Connection) -> usize {
+    assert!(
+        table_name == "user_preferences" || table_name == "products",
+        "The only allowed tables are user_preferences and products"
+    );
     match database.query_row(
         "SELECT name FROM sqlite_master WHERE type='table' AND name=?1",
         [&table_name],
@@ -176,6 +180,13 @@ fn number_of_tables(table_name: String, database: &Connection) -> usize {
 
 #[command]
 fn edit_product(product_id: i32, category: String, value: ProductValue) {
+    assert!(
+        category == "name"
+            || category == "description"
+            || category == "price"
+            || category == "quantity",
+        "The only allowed categories are name, description ,price and quantity"
+    );
     println!("\nEditing product");
 
     let mut db = db_start();
@@ -230,6 +241,7 @@ fn insert_product(db: &Connection, product: &Product) -> Result<(), rusqlite::Er
 #[command]
 fn checkout(product_id: i32, quantity: i32) -> Vec<Product> {
     println!("\nThe user asked to checkout, proceeding");
+    assert!(quantity > 0, "Quantity needs to be a positive number");
 
     let mut db = db_start();
 

@@ -14,6 +14,7 @@ interface ProductPageProps {
   setCheckout: React.Dispatch<React.SetStateAction<boolean>>
   setEditSubmit: React.Dispatch<React.SetStateAction<boolean>>
   edit_submit: boolean
+  setSelected: React.Dispatch<React.SetStateAction<cart_product | null>>
 }
 
 type CategoryState = {
@@ -22,7 +23,7 @@ type CategoryState = {
   price: boolean,
 }
 
-export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, edit_submit, setEditSubmit }: ProductPageProps) {
+export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, edit_submit, setEditSubmit, setSelected }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
@@ -42,14 +43,14 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     try {
       if (edit_submit == true) {
         const response = await invoke('edit_product', { productId: product.product_id, category: true_category, value: value });
-        console.log("Response from Rust:", response);
+       //console.log("Response from Rust:", response);
       }
-      console.log("\nCategory:", true_category, " value: ", value, " typeof: ", typeof (value));
+      //console.log("\nCategory:", true_category, " value: ", value, " typeof: ", typeof (value));
       setEditSubmit(false);
       clean();
     } catch (error) {
       console.error(error);
-      console.log("\nCategory:", true_category, " Value: ", value, " typeof: ", typeof (value));
+      //console.log("\nCategory:", true_category, " Value: ", value, " typeof: ", typeof (value));
     }
 
   }
@@ -107,18 +108,29 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   }
 
   return (
-    <div className="relative min-h-[600px] w-full flex items-start justify-center items-start p-4">
-      <div className="w-full max-w-xl bg-gray-900 rounded-2xl overflow-hidden sticky top-4">
-        <div className="h-[300px] bg-gray-900 flex items-center justify-center rounded-2xl flex-shrink-0">
-          <div className="h-[50px] relative w-full object-cover h-full bg-gray-800 mb-5 flex items-center justify-center rounded-2xl overflow-hidden">
+    <div className="relative w-full flex flex-row-reverse items-start justify-center p-4">
+      <div className="relative w-full max-w-xl bg-gray-900 rounded-2xl overflow-hidden sticky top-4">
+        <div className="bg-gray-800 rounded-2xl overflow-hidden">
+          <div className="relative w-full aspect-w-16 aspect-h-9">
+            <button
+              onClick={() => setSelected(null)} // Replace null with your actual closing logic if needed
+              className="absolute z-20 top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 focus:outline-none"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
             {product?.image ? (
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+                className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
               />
             ) : (
-              <span className="text-gray-100 text-lg">No Image Available</span>
+              <div className="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-2xl">
+                <span className="text-gray-300 text-lg font-semibold">No Image Available</span>
+              </div>
             )}
           </div>
         </div>

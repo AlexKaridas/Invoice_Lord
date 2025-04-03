@@ -1,6 +1,5 @@
-import Link from "next/link";
-
-export default function WelcomeScreen() {
+import { Dispatch, SetStateAction } from "react";
+export default function WelcomeScreen({ setWelcomeShown }: { setWelcomeShown: Dispatch<SetStateAction<number | null>> }) {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -14,11 +13,12 @@ export default function WelcomeScreen() {
         <p className="mb-8 mt-4 text-xl md:text-2xl text-gray-300">
           Welcome to the ultimate product management experience.
         </p>
-        <Link href={"/products_screen"}
+        <button
+          onClick={() => setWelcomeShown(1)}
           className="mt-10 px-8 py-4 rounded-full font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-blue-400 bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-white shadow-xl"
         >
           <span>Enter the Realm</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
