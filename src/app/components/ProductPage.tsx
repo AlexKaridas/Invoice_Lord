@@ -43,14 +43,14 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     try {
       if (edit_submit == true) {
         const response = await invoke('edit_product', { productId: product.product_id, category: true_category, value: value });
-        console.log("Response from Rust:", response);
+       //console.log("Response from Rust:", response);
       }
-      console.log("\nCategory:", true_category, " value: ", value, " typeof: ", typeof (value));
+      //console.log("\nCategory:", true_category, " value: ", value, " typeof: ", typeof (value));
       setEditSubmit(false);
       clean();
     } catch (error) {
       console.error(error);
-      console.log("\nCategory:", true_category, " Value: ", value, " typeof: ", typeof (value));
+      //console.log("\nCategory:", true_category, " Value: ", value, " typeof: ", typeof (value));
     }
 
   }
