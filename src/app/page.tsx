@@ -22,7 +22,7 @@ export default function Home() {
   if (welcomeShown != null) {
     return (
       <>
-        {welcomeShown == 0 ? <WelcomeScreen /> : <Products />}
+        {welcomeShown == 0 ? <WelcomeScreen setWelcomeShown={setWelcomeShown} /> : <Products />}
       </>
     )
   } else {

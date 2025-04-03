@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
 import Product from '../types';
 import ProductPage from './ProductPage';
-import EmptyState from './EmptyState';
 import cart_product from "../types";
 import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
+import ProductHeader from './ProductHeader';
 
 export default function Products() {
   const [result, setResult] = useState<Product[] | null>(null);
@@ -75,6 +75,7 @@ export default function Products() {
   }
 
   // JavaScript doesn't have a dedicated type for arrays; instead, it uses objects with numeric keys and a length property to simulate array behavior. 
+  // This is a reliable way to know if something is an array
   // console.log("type:", Array.isArray(products_array));
 
   return (
@@ -83,9 +84,7 @@ export default function Products() {
       sm:py-12 lg:py-16 
       max-w-7xl mx-auto">
       <div className="flex flex-col w-full min-h-screen">
-        <h1 className="text-4xl font-extrabold text-center pb-10 text-gray-100">
-          Products
-        </h1>
+        <ProductHeader productCount={result && result.length} />
         <div className="flex flex-col w-full flex-grow z-0">
           <div className="flex flex-row justify-between rounded-lg border-2 border-stone-700 bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden rounded-lg mb-5 overflow-hidden shadow-md dark:shadow-none dark:bg-gray-800">
             <button
@@ -109,8 +108,8 @@ export default function Products() {
           </div>
 
           <div className="w-full grid grid-cols-3 gap-5">
-            {result?.map((product) => (
-              <ProductCard product={product} setSelected={setSelected} dark_mode={true} />
+            {result?.map((product, key) => (
+              <ProductCard product={product} setSelected={setSelected} dark_mode={true} key={key} />
             ))}
           </div>
           <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'
