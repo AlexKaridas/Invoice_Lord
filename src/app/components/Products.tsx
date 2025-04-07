@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri'
-import Product from '../types';
+import { Product } from '../types';
 import ProductPage from './ProductPage';
-import cart_product from "../types";
+import { cart_product } from "../types";
 import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
@@ -29,9 +29,9 @@ export default function Products() {
 
   async function update_quantity() {
     try {
-      if (submit === true && cart.length > 0) {
-        let id = cart[0].product_id;
-        let quantity = cart[0].selected_quantity;
+      if (submit == true && cart.length > 0) {
+        const id = cart[0].product_id;
+        const quantity = cart[0].selected_quantity;
 
         await invoke<any>('checkout', { productId: id, quantity: quantity })
           .then(result => setResult(result))

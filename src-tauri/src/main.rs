@@ -1,6 +1,6 @@
-// Prevents additional console window on Windows in release, DO NOT REMOVE!!
+// Prevents additional console window on Windows in release
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use rusqlite::{params, types::ToSqlOutput, Connection, Result, ToSql};
+use rusqlite::{params, Connection, Result};
 use serde::{Deserialize, Serialize};
 use std::{
     fs::File,
@@ -9,29 +9,13 @@ use std::{
 use tauri::{command, generate_handler};
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(untagged)]
-enum ProductValue {
-    Int(i32),
-    Text(String),
-}
-
-#[derive(Debug, Serialize)]
 struct Product {
-    product_id: u8,
+    product_id: i32,
     name: String,
     description: String,
-    price: u8,
-    quantity: u8,
+    price: i32,
+    quantity: i32,
     image: Option<String>,
-}
-
-impl ToSql for ProductValue {
-    fn to_sql(&self) -> Result<ToSqlOutput> {
-        match self {
-            ProductValue::Int(value) => Ok((*value).into()),
-            ProductValue::Text(value) => Ok(value.as_str().into()),
-        }
-    }
 }
 
 fn main() {
@@ -47,11 +31,10 @@ fn main() {
 }
 
 //TODO:
+// Take all of products attributes instead of one category at a time when editing
 // Also edit product quantity
 // Insert a new product
 // Remove a product entirely
-// Additional welcome screen and description screen --Done
-// Starting window size change --Done
 // Final: Able to drag and drop a file inside and
 // Add or replace products and their attributes from the file
 
@@ -179,30 +162,13 @@ fn number_of_tables(table_name: String, database: &Connection) -> usize {
 }
 
 #[command]
-fn edit_product(product_id: i32, category: String, value: ProductValue) {
-    assert!(
-        category == "name"
-            || category == "description"
-            || category == "price"
-            || category == "quantity",
-        "The only allowed categories are name, description ,price and quantity"
-    );
+fn edit_product(product: Product) {
     println!("\nEditing product");
 
     let mut db = db_start();
 
-    let new_value: String = match value {
-        ProductValue::Text(ref inner_string) => {
-            println!("{inner_string}");
-            inner_string.to_string()
-        }
-        ProductValue::Int(number) => {
-            println!("{number}");
-            number.to_string()
-        }
-    };
-
-    let update_query = format!("UPDATE products SET {} = ? WHERE product_id = ?", category);
+    let update_query =
+        format!("UPDATE products SET name = ?, description = ?, price = ? WHERE product_id = ?",);
     let transaction = db
         .transaction()
         .expect("Failed to establish sql transaction in checkout");
@@ -213,7 +179,12 @@ fn edit_product(product_id: i32, category: String, value: ProductValue) {
             .expect("Failed to prepare query for rows in checkout");
 
         prepare
-            .execute(params![new_value, product_id])
+            .execute(params![
+                product.name,
+                product.description,
+                product.price as i32,
+                product.product_id as i32
+            ])
             .expect("Failed to execute transaction");
     }
 
@@ -366,7 +337,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
     let mut products_vector: Vec<Product> = Vec::new();
     let reader = BufReader::new(file_handle);
 
-    let mut product: (String, String, u8, u8, String) =
+    let mut product: (String, String, i32, i32, String) =
         (String::from(""), String::from(""), 0, 0, String::from(""));
 
     for line in reader.lines() {
@@ -376,7 +347,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
 
         let mut result = Vec::new();
         let mut current: Option<&str> = None;
-        let id_counter: u8 = 0;
+        let id_counter: i32 = 0;
 
         if words.len() > 0 {
             words.into_iter().for_each(|word| {
@@ -424,7 +395,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
                             .take(2)
                             .collect();
 
-                        product.2 = number.parse::<u8>().expect("Failed to parse price number");
+                        product.2 = number.parse::<i32>().expect("Failed to parse price number");
                     }
                     "Quantity" => {
                         let words: &Vec<&str> = &result[0].1;
@@ -434,7 +405,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
                             .take(2)
                             .collect();
                         product.3 = number
-                            .parse::<u8>()
+                            .parse::<i32>()
                             .expect("Failed to parse quantity number");
                     }
                     "Image" => {
