@@ -1,4 +1,4 @@
-import Product from "../types";
+import { Product } from "../types";
 import { Dispatch, SetStateAction } from 'react';
 
 export default function ProductCard({ product, setSelected, dark_mode }: { product: Product, setSelected: Dispatch<SetStateAction<Product | null>>, dark_mode: boolean }) {
@@ -58,18 +58,19 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
           />
         </div>
 
-        {/* Text Area - Allows wrapping */}
-        <div className="w-full text-center px-1 mb-3"> {/* Reduced horizontal padding slightly */}
-          {/* Product Name - No longer truncated */}
+        {/* Text Area */}
+        <div className="w-full text-center px-1 mb-3">
+          {/* Product Name */}
           <h3
             className="
-        text-xl /* Or text-lg if names are very long */
+        text-xl 
         font-semibold
-        text-stone-100 /* Main light text */
+        text-stone-100 
         mb-1
-        group-hover:text-stone-300 /* Subtle hover brightness */
+        group-hover:text-stone-300 
         transition-colors duration-300
-        break-words /* Ensure long words can wrap */
+        break-words 
+        tracking-wider
       "
           >
             {product.name.replace(/[^a-zA-Z0-9\s]/g, "")}
