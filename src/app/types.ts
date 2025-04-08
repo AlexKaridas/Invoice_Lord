@@ -29,6 +29,8 @@ export interface ProductPageProps {
   setEditSubmit: React.Dispatch<React.SetStateAction<boolean>>
   edit_submit: boolean
   setSelected: React.Dispatch<React.SetStateAction<Product | cart_product | null>>
+  setRemoveProduct: React.Dispatch<React.SetStateAction<boolean>>
+  remove_product: boolean
 }
 
 export interface CategoryState {

@@ -25,7 +25,8 @@ fn main() {
             checkout,
             edit_product,
             welcome_screen,
-            insert_new_product
+            insert_new_product,
+            remove_product
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
@@ -160,6 +161,34 @@ fn number_of_tables(table_name: String, database: &Connection) -> usize {
             panic!("\nDatabase error: {:?}", err);
         }
     }
+}
+
+#[command]
+fn remove_product(product_id: i32) {
+    println!("\nRemoving product\n");
+
+    let mut db = db_start();
+
+    let update_query = format!("DELETE FROM products WHERE product_id = ?",);
+    let transaction = db
+        .transaction()
+        .expect("Failed to establish sql transaction in remove_product");
+
+    {
+        let mut prepare = transaction
+            .prepare(&update_query)
+            .expect("Failed to prepare query for rows in remove_product");
+
+        prepare
+            .execute(params![product_id])
+            .expect("Failed to execute transaction");
+    }
+
+    transaction
+        .commit()
+        .expect("Failed to commit transaction in remove_product");
+
+    println!("\nProduct:{:?} was deleted\n", product_id);
 }
 
 #[command]

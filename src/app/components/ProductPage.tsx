@@ -4,7 +4,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { CategoryState, formData, ProductPageProps, cart_product } from "../types";
 import { FormEvent } from "react";
 
-export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, edit_submit, setEditSubmit, setCheckout, setSelected }: ProductPageProps) {
+export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, edit_submit, setEditSubmit, setCheckout, setSelected, setRemoveProduct, remove_product }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
@@ -37,9 +37,22 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
         price: Number(product.price),
         quantity: product.quantity,
       });
-
     }
   }, [edit_submit, product])
+
+  useEffect(() => {
+    if (remove_product === true && product.product_id != null) {
+      console.log("\nRemoving product with product_id", product.product_id);
+      invoke<String>('remove_product', { productId: product.product_id })
+        .then(result => console.log("\nResult from remove_product:", result))
+        .catch(console.error)
+      setRemoveProduct(false);
+      setSelected(null);
+    } else {
+      console.log("\nremove_product is false, but useEffect fired anyway,", product.product_id);
+      setRemoveProduct(false);
+    }
+  }, [remove_product])
 
   async function edit_product() {
     try {
@@ -234,7 +247,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 )
               }
               } className="text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
-                <span className="">Edit</span>
+                <span>Edit</span>
               </button>
             </div>
 
@@ -332,6 +345,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             </div>
           </form>
         }
+        <div className="w-full flex items-center justify-center">
+          <button
+            onClick={() => setRemoveProduct(true)}
+            className={`
+              w-1/2 py-3 rounded-lg shadow-md transition duration-300 ease-in-out active:bg-red-800 bg-white text-black font-bold focus:ring-red-400 hover:text-white hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2`}
+          >
+            Delete Item
+          </button>
+        </div>
       </div>
     </div >
   );

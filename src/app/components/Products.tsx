@@ -27,13 +27,14 @@ export default function Products() {
     quantity: 0,
     image: "https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png",
   });
+  const [remove_product, setRemoveProduct] = useState<boolean>(false);
   const products_length = Number(result?.length);
 
   useEffect(() => {
     invoke<Product[]>('main_initialize')
       .then(result => setResult(result))
       .catch(console.error)
-  }, [edit_submit, submit_new_product])
+  }, [edit_submit, submit_new_product, remove_product])
 
   useEffect(() => {
     if (submit === true) {
@@ -165,7 +166,7 @@ export default function Products() {
           </div>
           <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'}`}>
             {selected ? (
-              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} setSelected={setSelected} />
+              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} setSelected={setSelected} setRemoveProduct={setRemoveProduct} remove_product={remove_product} />
             ) : (
               <div className="min-h-screen flex items-center justify-center">
                 <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
