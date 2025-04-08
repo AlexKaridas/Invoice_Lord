@@ -7,6 +7,7 @@ import { cart_product } from "../types";
 import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
+import AddNewProductCard from './AddNewProductCard';
 
 export default function Products() {
   const [result, setResult] = useState<Product[] | null>(null);
@@ -16,6 +17,16 @@ export default function Products() {
   const [checkout, setCheckout] = useState<boolean>(false);
   const [submit, setSubmit] = useState<boolean>(false);
   const [edit_submit, setEditSubmit] = useState<boolean>(false);
+  const [add_new_product, setAddNewProduct] = useState<boolean>(false);
+  const [new_product, setNewProduct] = useState<Product>({
+    product_id: 1,
+    name: "",
+    description: "",
+    price: 0,
+    quantity: 0,
+    image: "",
+  });
+  const products_length = Number(result?.length);
 
   useEffect(() => {
     invoke<Product[]>('main_initialize')
@@ -24,8 +35,29 @@ export default function Products() {
   }, [edit_submit])
 
   useEffect(() => {
-    update_quantity()
+    if (submit === true) {
+      update_quantity()
+    }
   }, [submit])
+
+  useEffect(() => {
+    if (edit_submit === true) {
+      try {
+        console.log("\nAdding new product");
+        console.log(new_product);
+        invoke<String>('insert_new_product', { product: new_product })
+          .then(result => console.log(result))
+          .catch(console.error)
+        setEditSubmit(false);
+      } catch (err) {
+        console.error(err);
+        setEditSubmit(false);
+      }
+    } else {
+      console.log("\nEdit submit not true, but fired anyway: ", edit_submit);
+      setEditSubmit(false);
+    }
+  }, [edit_submit])
 
   async function update_quantity() {
     try {
@@ -105,15 +137,32 @@ export default function Products() {
             >
               <h1 className="text-lg font-semibold text-stone-200">Quantity</h1>
             </button>
+            <div className="flex flex-row w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <button
+                onClick={() => setAddNewProduct(true)}
+                className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 border-l border-stone-700"
+              >
+                <h1 className="text-lg font-semibold text-stone-200">Add New Product</h1>
+              </button>
+              {add_new_product && <button
+                onClick={() => setAddNewProduct(!add_new_product)}
+                className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 border-l border-stone-700"
+              >
+                <h1 className="text-lg font-semibold text-stone-200">Cancel</h1>
+              </button>
+              }
+            </div>
           </div>
 
           <div className="w-full grid grid-cols-3 gap-5">
+            {/*Add New Product Card */}
+            {add_new_product && <AddNewProductCard products_length={products_length} setNewProduct={setNewProduct} new_product={new_product} setAddNewProduct={setAddNewProduct} setEditSubmit={setEditSubmit} />
+            }
             {result?.map((product, key) => (
               <ProductCard product={product} setSelected={setSelected} dark_mode={true} key={key} />
             ))}
           </div>
-          <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'
-            }`}>
+          <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'}`}>
             {selected ? (
               <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} setSelected={setSelected} />
             ) : (

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface Product {
-  product_id: number,
+  product_id?: number,
   name: string,
   description: string,
   price: number,
@@ -20,7 +20,7 @@ export interface cart_product {
 }
 
 export interface ProductPageProps {
-  product: cart_product;
+  product: Product;
   cart: cart_product[];
   setCart: Dispatch<SetStateAction<cart_product[]>>;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -28,7 +28,7 @@ export interface ProductPageProps {
   setCheckout: React.Dispatch<React.SetStateAction<boolean>>
   setEditSubmit: React.Dispatch<React.SetStateAction<boolean>>
   edit_submit: boolean
-  setSelected: React.Dispatch<React.SetStateAction<cart_product | null>>
+  setSelected: React.Dispatch<React.SetStateAction<Product | cart_product | null>>
 }
 
 export interface CategoryState {
@@ -45,3 +45,10 @@ export interface formData {
   quantity: number,
 }
 
+export interface AddNewProductCardProps {
+  setAddNewProduct: React.Dispatch<React.SetStateAction<boolean>>
+  setEditSubmit: React.Dispatch<SetStateAction<boolean>>;
+  setNewProduct: Dispatch<SetStateAction<Product>>;
+  new_product: Product,
+  products_length: number,
+}

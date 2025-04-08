@@ -22,9 +22,24 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
 
   useEffect(() => {
-    console.log("\nUseEffect fire")
-    edit_product();
-  }, [edit_submit])
+    if (edit_submit === true) {
+      edit_product();
+    } else {
+      setCategory({
+        name: false,
+        description: false,
+        price: false
+      });
+      setInputValue({
+        product_id: product.product_id,
+        name: product.name,
+        description: product.description,
+        price: Number(product.price),
+        quantity: product.quantity,
+      });
+
+    }
+  }, [edit_submit, product])
 
   async function edit_product() {
     try {
@@ -131,7 +146,6 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             )}
           </div>
         </div>
-        {/* Form Start */}
         {!edit ?
           <div className="p-6 space-y-4">
             <div className="flex flex-row-reverse w-full justify-between">
@@ -154,12 +168,9 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             </div>
 
             {/*Description*/}
-            <div>
-              <p className="text-md text-gray-300 leading-relaxed tracking-wide">
-                {product?.description}
-              </p>
-            </div>
-
+            <p className="text-md text-gray-300 leading-relaxed tracking-wide">
+              {product?.description}
+            </p>
             {/*Price*/}
             <p className="text-xl font-semibold text-blue-300">
               ${product?.price.toFixed(2)}
@@ -212,8 +223,8 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             }
           </div>
           :
-          <form onSubmit={handle_submit} className="p-6 space-y-4">
-            <div className="flex flex-row-reverse w-full justify-between">
+          <form onSubmit={handle_submit} className="z-50 top-0 p-4 space-y-5">
+            <div className="flex w-full items-center justify-end">
               <button onClick={() => {
                 setEdit(!edit), setCategory({
                   name: false,
@@ -222,90 +233,67 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 }
                 )
               }
-              } className="flex items-center justify-center text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
-                <span className="leading-none">Edit</span>
+              } className="text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
+                <span className="">Edit</span>
               </button>
-
-              {/*Name*/}
-              <div className="relative w-full">
-                <button onClick={() => change_state('name')} className=" ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700 text-2xl font-bold text-gray-100"> {!category.name && name} </button>
-                <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
-                  <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full max-w-xl h-full">
-                    <input
-                      type="text"
-                      maxLength={1000}
-                      placeholder={input_value.name}
-                      id="name"
-                      value={input_value.name}
-                      onChange={(e) => {
-                        setInputValue((prev) => ({
-                          ...prev,
-                          name: e.target.value,
-                        }))
-                        change_state('name')
-                      }}
-                      className="w-full mr-5 px-2 py-4 text-2xl text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
+
+            {/*Name*/}
+            <input
+              type="text"
+              maxLength={1000}
+              placeholder={input_value.name}
+              id="name"
+              value={input_value.name}
+              onChange={(e) => {
+                setInputValue((prev) => ({
+                  ...prev,
+                  name: e.target.value,
+                }))
+                change_state('name')
+              }}
+              className="inset-ring inset-ring-blue-300 rounded-sm w-full mr-5 px-2 py-2 text-2xl text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none  placeholder-gray-400 transition-all duration-300 focus:inset-ring-purple-400 focus:border-transparent"
+            />
+
             {/*Description*/}
-            <div className="relative flex flex-col gap-5 items-start justify-center ">
-              <button onClick={() => change_state('description')} className="ease-in-out duration-100 text-gray-400 text-left leading-relaxed active:bg-gray-900 hover:bg-gray-700">
-                `{product?.description}`
-              </button>
-              <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
-                <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full max-w-xl h-full">
-                  <textarea
-                    maxLength={1000}
-                    placeholder={input_value.description}
-                    name="description"
-                    value={input_value.description}
-                    onChange={
-                      (e) => {
-                        setInputValue((prev) => ({
-                          ...prev,
-                          description: e.target.value,
-                        })),
-                          change_state('description')
-                      }
-                    }
-                    style={{ resize: 'none' }}
-                    className="w-full mr-5 bg-gray-800 z-50 px-2 py-2 text-md overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                  />
-                </div>
-              </div>
+            <div className="flex flex-row inset-ring inset-ring-blue-300 rounded-sm w-full max-w-xl h-auto">
+              <textarea
+                maxLength={2000}
+                placeholder={input_value.description}
+                name="description"
+                value={input_value.description}
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    })),
+                      change_state('description')
+                  }
+                }
+                style={{ resize: 'none' }}
+                className="w-full bg-gray-800 z-50 h-20 px-2 py-2 text-md overflow-scroll focus:outline-none text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:inset-ring focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
             </div>
 
-            <div className="relative flex flex-col gap-5 items-start justify-center ">
-              <button onClick={() => change_state('price')} className="my-2 mx-1 ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
-                `${product?.price.toFixed(2)}`
-              </button>
-              <div className="absolute inset-0 flex items-start justify-start w-32 z-50 backdrop-blur-lg">
-                <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full text-xl max-w-xl h-full">
-                  <input
-                    type="number"
-                    maxLength={1000}
-                    placeholder={`${product.price}`}
-                    value={input_value.price}
-                    name="price"
-                    onChange={
-                      (e) => {
-
-                        setInputValue((prev) => ({
-                          ...prev,
-                          price: Number(e.target.value),
-                        }))
-                        change_state('price')
-                      }
-                    }
-                    min="1"
-                    className="w-full mr-5 px-4 py-2 text-md overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                  />
-                </div>
-              </div>
-            </div>
+            <input
+              type="number"
+              maxLength={1000}
+              placeholder={`${product.price}`}
+              value={input_value.price}
+              name="price"
+              onChange={
+                (e) => {
+                  setInputValue((prev) => ({
+                    ...prev,
+                    price: Number(e.target.value),
+                  }))
+                  change_state('price')
+                }
+              }
+              min="1"
+              className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+            />
 
             {/*Submit cancel buttons */}
             <div className="w-full flex flex-row gap-5">

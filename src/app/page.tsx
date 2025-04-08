@@ -27,7 +27,8 @@ export default function Home() {
     )
   } else {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center gap-5 min-h-screen">
+        <p className="text-2xl">Loading Assets...</p>
         <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
       </div>
     )

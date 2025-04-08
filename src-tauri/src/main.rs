@@ -24,14 +24,15 @@ fn main() {
             main_initialize,
             checkout,
             edit_product,
-            welcome_screen
+            welcome_screen,
+            insert_new_product
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
 }
 
 //TODO:
-// Take all of products attributes instead of one category at a time when editing
+// Take all of products attributes instead of one category at a time when editing --Done
 // Also edit product quantity
 // Insert a new product
 // Remove a product entirely
@@ -193,10 +194,14 @@ fn edit_product(product: Product) {
         .expect("Failed to commit transaction in edit_product");
 }
 
-fn insert_product(db: &Connection, product: &Product) -> Result<(), rusqlite::Error> {
+#[command]
+fn insert_new_product(product: Product) {
+    println!("\nInsert new product");
+    let db = db_start();
+
     let query =
         "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
-    db.execute(
+    match db.execute(
         query,
         params![
             &product.name,
@@ -205,8 +210,31 @@ fn insert_product(db: &Connection, product: &Product) -> Result<(), rusqlite::Er
             product.quantity as i32,
             &product.image
         ],
-    )?;
-    Ok(())
+    ) {
+        Ok(_) => println!("\nInserted new product"),
+        Err(err) => panic!("\nFailed to insert new product:{:?}", err),
+    }
+}
+
+fn insert_product(product: &Product) -> String {
+    println!("\nInsert new product");
+    let db = db_start();
+
+    let query =
+        "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
+    match db.execute(
+        query,
+        params![
+            &product.name,
+            &product.description,
+            product.price as i32,
+            product.quantity as i32,
+            &product.image
+        ],
+    ) {
+        Ok(_) => "Yeah man".to_string(),
+        Err(_err) => "No man".to_string(),
+    }
 }
 
 #[command]
@@ -283,7 +311,7 @@ fn main_initialize() -> Vec<Product> {
 
         for product in iterator {
             println!("\nProduct: {:?}", product);
-            insert_product(&db, product).expect("Error inserting product:{product}");
+            insert_product(product);
         }
         println!("\n--Created table\n--Populated table with products.txt file\n");
     } else if number_of_tables == 1 {
