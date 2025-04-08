@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import { AddNewProductCardProps } from "../types"
 
-export default function AddNewProductCard({ products_length, setNewProduct, setAddNewProduct, setEditSubmit }: AddNewProductCardProps) {
+export default function AddNewProductCard({ products_length, setNewProduct, setAddNewProduct, setSubmitNewProduct }: AddNewProductCardProps) {
 
   function on_submit(event: FormEvent<HTMLFormElement>) {
     try {
@@ -15,7 +15,7 @@ export default function AddNewProductCard({ products_length, setNewProduct, setA
       setTimeout(() => { setAddNewProduct(false) }, 1000)
     } catch (err) {
       console.error(err);
-      setEditSubmit(false);
+      setSubmitNewProduct(false);
     }
   }
 
@@ -51,7 +51,6 @@ export default function AddNewProductCard({ products_length, setNewProduct, setA
               name: e.target.value,
             }))
           }}
-
             required={true}
             className="inset-ring inset-ring-blue-300 p-2" />
         </h3>
@@ -99,7 +98,7 @@ export default function AddNewProductCard({ products_length, setNewProduct, setA
 
       {/*Add and Cancel buttons*/}
       <div className="w-full flex justify-between mt-5">
-        <button onClick={() => setEditSubmit(true)} className="flex items-center justify-center text-center font-bold bg-blue-600 px-4 py-1 rounded-sm">
+        <button onClick={() => setSubmitNewProduct(true)} className="flex items-center justify-center text-center font-bold bg-blue-600 px-4 py-1 rounded-sm">
           <p>Add</p>
         </button>
         <button onClick={() => setAddNewProduct(false)} className="flex items-center justify-center text-center text-black font-bold bg-white px-4 py-1 rounded-sm">

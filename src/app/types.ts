@@ -47,8 +47,8 @@ export interface formData {
 
 export interface AddNewProductCardProps {
   setAddNewProduct: React.Dispatch<React.SetStateAction<boolean>>
-  setEditSubmit: React.Dispatch<SetStateAction<boolean>>;
   setNewProduct: Dispatch<SetStateAction<Product>>;
+  setSubmitNewProduct: React.Dispatch<SetStateAction<boolean>>;
   new_product: Product,
   products_length: number,
 }

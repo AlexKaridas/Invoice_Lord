@@ -17,14 +17,15 @@ export default function Products() {
   const [checkout, setCheckout] = useState<boolean>(false);
   const [submit, setSubmit] = useState<boolean>(false);
   const [edit_submit, setEditSubmit] = useState<boolean>(false);
+  const [submit_new_product, setSubmitNewProduct] = useState<boolean>(false);
   const [add_new_product, setAddNewProduct] = useState<boolean>(false);
   const [new_product, setNewProduct] = useState<Product>({
     product_id: 1,
-    name: "",
-    description: "",
+    name: "Insert Product Name",
+    description: "Insert Product Description",
     price: 0,
     quantity: 0,
-    image: "",
+    image: "https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png",
   });
   const products_length = Number(result?.length);
 
@@ -32,7 +33,7 @@ export default function Products() {
     invoke<Product[]>('main_initialize')
       .then(result => setResult(result))
       .catch(console.error)
-  }, [edit_submit])
+  }, [edit_submit, submit_new_product])
 
   useEffect(() => {
     if (submit === true) {
@@ -41,23 +42,23 @@ export default function Products() {
   }, [submit])
 
   useEffect(() => {
-    if (edit_submit === true) {
+    if (submit_new_product === true) {
       try {
         console.log("\nAdding new product");
-        console.log(new_product);
+        console.log("\nNew product:", new_product);
         invoke<String>('insert_new_product', { product: new_product })
-          .then(result => console.log(result))
+          .then(result => console.log("\nResult from insert_new_product:", result))
           .catch(console.error)
-        setEditSubmit(false);
+        setSubmitNewProduct(false);
       } catch (err) {
         console.error(err);
-        setEditSubmit(false);
+        setSubmitNewProduct(false);
       }
     } else {
-      console.log("\nEdit submit not true, but fired anyway: ", edit_submit);
-      setEditSubmit(false);
+      console.log("\nSubmit new product not true, but fired anyway: ", submit_new_product);
+      setSubmitNewProduct(false);
     }
-  }, [edit_submit])
+  }, [submit_new_product])
 
   async function update_quantity() {
     try {
@@ -156,7 +157,7 @@ export default function Products() {
 
           <div className="w-full grid grid-cols-3 gap-5">
             {/*Add New Product Card */}
-            {add_new_product && <AddNewProductCard products_length={products_length} setNewProduct={setNewProduct} new_product={new_product} setAddNewProduct={setAddNewProduct} setEditSubmit={setEditSubmit} />
+            {add_new_product && <AddNewProductCard products_length={products_length} setNewProduct={setNewProduct} new_product={new_product} setAddNewProduct={setAddNewProduct} setSubmitNewProduct={setSubmitNewProduct} />
             }
             {result?.map((product, key) => (
               <ProductCard product={product} setSelected={setSelected} dark_mode={true} key={key} />
