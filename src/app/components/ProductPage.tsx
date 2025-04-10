@@ -4,7 +4,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { CategoryState, formData, ProductPageProps, cart_product } from "../types";
 import { FormEvent } from "react";
 
-export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, edit_submit, setEditSubmit, setCheckout, setSelected, setRemoveProduct, remove_product }: ProductPageProps) {
+export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, setSelected, setRefresh }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
@@ -18,10 +18,13 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     price: Number(product.price),
     quantity: product.quantity,
   });
+  const [edit_submit, setEditSubmit] = useState<boolean>(false);
+  const [remove_product, setRemoveProduct] = useState<boolean>(false);
 
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
 
   useEffect(() => {
+    console.log("\n\tEdit Product useEffect");
     if (edit_submit === true) {
       edit_product();
     } else {
@@ -41,6 +44,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   }, [edit_submit, product])
 
   useEffect(() => {
+    console.log("\n\tRemove product useEffect");
     if (remove_product === true && product.product_id != null) {
       console.log("\nRemoving product with product_id", product.product_id);
       invoke<String>('remove_product', { productId: product.product_id })
@@ -48,6 +52,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
         .catch(console.error)
       setRemoveProduct(false);
       setSelected(null);
+      setRefresh(true);
     } else {
       console.log("\nremove_product is false, but useEffect fired anyway,", product.product_id);
       setRemoveProduct(false);
@@ -56,9 +61,8 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
 
   async function edit_product() {
     try {
-      console.log("\nEdit product function");
       if (edit_submit === true) {
-        console.log("\n\tSENDING\t\n");
+        console.log("\nEditing product\n");
         const response = await invoke('edit_product', { product: input_value });
         console.log("Response from edit_product:", response);
         clean();
@@ -119,6 +123,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     setSelected(null);
     setEditSubmit(false);
     setEdit(false);
+    setRefresh(true);
   }
 
   function handle_submit(event: FormEvent<HTMLFormElement>) {

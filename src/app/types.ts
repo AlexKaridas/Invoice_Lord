@@ -26,11 +26,8 @@ export interface ProductPageProps {
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>
   isCartOpen: boolean
   setCheckout: React.Dispatch<React.SetStateAction<boolean>>
-  setEditSubmit: React.Dispatch<React.SetStateAction<boolean>>
-  edit_submit: boolean
   setSelected: React.Dispatch<React.SetStateAction<Product | cart_product | null>>
-  setRemoveProduct: React.Dispatch<React.SetStateAction<boolean>>
-  remove_product: boolean
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface CategoryState {
@@ -49,8 +46,6 @@ export interface formData {
 
 export interface AddNewProductCardProps {
   setAddNewProduct: React.Dispatch<React.SetStateAction<boolean>>
-  setNewProduct: Dispatch<SetStateAction<Product>>;
-  setSubmitNewProduct: React.Dispatch<SetStateAction<boolean>>;
-  new_product: Product,
   products_length: number,
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>
 }

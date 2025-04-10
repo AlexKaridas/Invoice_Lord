@@ -1,7 +1,20 @@
 import { FormEvent } from "react";
 import { AddNewProductCardProps } from "../types"
+import { useState, useEffect } from "react";
+import { Product } from "../types";
+import { invoke } from "@tauri-apps/api";
 
-export default function AddNewProductCard({ products_length, setNewProduct, setAddNewProduct, setSubmitNewProduct }: AddNewProductCardProps) {
+export default function AddNewProductCard({ products_length, setAddNewProduct, setRefresh }: AddNewProductCardProps) {
+  const [new_product, setNewProduct] = useState<Product>({
+    product_id: 1,
+    name: "Insert Product Name",
+    description: "Insert Product Description",
+    price: 0,
+    quantity: 0,
+    image: "https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png",
+  });
+  const [submit_new_product, setSubmitNewProduct] = useState<boolean>(false);
+
 
   function on_submit(event: FormEvent<HTMLFormElement>) {
     try {
@@ -12,12 +25,30 @@ export default function AddNewProductCard({ products_length, setNewProduct, setA
         ...prev,
         product_id: products_length + 1,
       }));
-      setTimeout(() => { setAddNewProduct(false) }, 1000)
+      setRefresh(true);
+      setAddNewProduct(false);
     } catch (err) {
       console.error(err);
       setSubmitNewProduct(false);
     }
   }
+
+  useEffect(() => {
+    if (submit_new_product === true) {
+      try {
+        console.log("\nAdding new product");
+        console.log("\nNew product:", new_product);
+        invoke<String>('insert_new_product', { product: new_product })
+          .then(result => console.log("\nResult from insert_new_product:", result))
+          .catch(console.error)
+        setSubmitNewProduct(false);
+      } catch (err) {
+        console.error(err);
+        setSubmitNewProduct(false);
+      }
+    }
+  }, [submit_new_product])
+
 
   return (
     <form

@@ -16,25 +16,17 @@ export default function Products() {
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [checkout, setCheckout] = useState<boolean>(false);
   const [submit, setSubmit] = useState<boolean>(false);
-  const [edit_submit, setEditSubmit] = useState<boolean>(false);
-  const [submit_new_product, setSubmitNewProduct] = useState<boolean>(false);
   const [add_new_product, setAddNewProduct] = useState<boolean>(false);
-  const [new_product, setNewProduct] = useState<Product>({
-    product_id: 1,
-    name: "Insert Product Name",
-    description: "Insert Product Description",
-    price: 0,
-    quantity: 0,
-    image: "https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png",
-  });
-  const [remove_product, setRemoveProduct] = useState<boolean>(false);
-  const products_length = Number(result?.length);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     invoke<Product[]>('main_initialize')
       .then(result => setResult(result))
       .catch(console.error)
-  }, [edit_submit, submit_new_product, remove_product])
+    console.log("\nRefresh");
+    return () =>
+      setRefresh(false);
+  }, [refresh])
 
   useEffect(() => {
     if (submit === true) {
@@ -42,26 +34,8 @@ export default function Products() {
     }
   }, [submit])
 
-  useEffect(() => {
-    if (submit_new_product === true) {
-      try {
-        console.log("\nAdding new product");
-        console.log("\nNew product:", new_product);
-        invoke<String>('insert_new_product', { product: new_product })
-          .then(result => console.log("\nResult from insert_new_product:", result))
-          .catch(console.error)
-        setSubmitNewProduct(false);
-      } catch (err) {
-        console.error(err);
-        setSubmitNewProduct(false);
-      }
-    } else {
-      console.log("\nSubmit new product not true, but fired anyway: ", submit_new_product);
-      setSubmitNewProduct(false);
-    }
-  }, [submit_new_product])
 
-  async function update_quantity() {
+  async function update_quantity(): Promise<void> {
     try {
       if (submit == true && cart.length > 0) {
         const id = cart[0].product_id;
@@ -76,13 +50,13 @@ export default function Products() {
         setIsCartOpen(false);
         setSelected(null);
       }
-
     } catch (err) {
       console.error(err);
     }
   };
 
-  function sort_products(sorting: number) {
+
+  function sort_products(sorting: number): void {
     if (result !== null) {
       switch (sorting) {
         case 0: {
@@ -158,7 +132,7 @@ export default function Products() {
 
           <div className="w-full grid grid-cols-3 gap-5">
             {/*Add New Product Card */}
-            {add_new_product && <AddNewProductCard products_length={products_length} setNewProduct={setNewProduct} new_product={new_product} setAddNewProduct={setAddNewProduct} setSubmitNewProduct={setSubmitNewProduct} />
+            {add_new_product && <AddNewProductCard products_length={Number(result?.length)} setAddNewProduct={setAddNewProduct} setRefresh={setRefresh} />
             }
             {result?.map((product, key) => (
               <ProductCard product={product} setSelected={setSelected} dark_mode={true} key={key} />
@@ -166,7 +140,7 @@ export default function Products() {
           </div>
           <div className={`z-10 fixed top-0 right-0 h-screen w-full md:max-w-md bg-white dark:bg-gray-900 shadow-xl transform transition-transform duration-300 ease-in-out ${selected ? 'translate-x-0' : 'translate-x-full'}`}>
             {selected ? (
-              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setEditSubmit={setEditSubmit} edit_submit={edit_submit} setSelected={setSelected} setRemoveProduct={setRemoveProduct} remove_product={remove_product} />
+              <ProductPage product={selected} cart={cart} setCart={setCart} setIsCartOpen={setIsCartOpen} isCartOpen={isCartOpen} setCheckout={setCheckout} setSelected={setSelected} setRefresh={setRefresh} />
             ) : (
               <div className="min-h-screen flex items-center justify-center">
                 <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
