@@ -5,31 +5,29 @@ import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 
 export default function Home() {
-  const [welcomeShown, setWelcomeShown] = useState<number | null>(null);
+  const [welcomeShown, setWelcomeShown] = useState<null | number>(null);
 
   useEffect(() => {
-    async function fetchWelcome() {
-      try {
-        const response = await invoke<number>("welcome_screen");
-        setWelcomeShown(response);
-      } catch (error) {
-        console.error(error);
-      }
+    try {
+      invoke<number>("welcome_screen").then(response => setWelcomeShown(response)).catch(console.error);
+    } catch (error) {
+      console.error(error);
     }
-    fetchWelcome();
-  }, []);
+  }, [])
 
-  if (welcomeShown != null) {
+  if (welcomeShown === null) {
     return (
-      <>
-        {welcomeShown == 0 ? <WelcomeScreen setWelcomeShown={setWelcomeShown} /> : <Products />}
-      </>
+      <div className="flex justify-center items-center gap-5 min-h-screen">
+        <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
+      </div>
+    )
+  } else if (welcomeShown === 0) {
+    return (
+      <WelcomeScreen setWelcomeShown={setWelcomeShown} />
     )
   } else {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-10 h-10 border-4 border-t-transparent border-blue-500 rounded-full animate-spin"></div>
-      </div>
+      <Products />
     )
   }
 }

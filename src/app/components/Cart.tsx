@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import cart_product from "../types";
+import { cart_product } from '../types';
 
 interface CartPageProps {
   cartItems: cart_product[];

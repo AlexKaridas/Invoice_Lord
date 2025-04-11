@@ -3,49 +3,82 @@ import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { CategoryState, formData, ProductPageProps, cart_product } from "../types";
 import { FormEvent } from "react";
+import { Product } from "../types";
 
-export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, edit_submit, setEditSubmit, setCheckout, setSelected }: ProductPageProps) {
+export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, setSelected, setRefresh }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
     description: false,
-    price: false
+    price: false,
+    quantity: false
   });
   const [input_value, setInputValue] = useState<formData>({
     product_id: product.product_id,
     name: product.name,
     description: product.description,
     price: Number(product.price),
-    quantity: product.quantity,
+    quantity: Number(product.quantity),
   });
+  const [edit_submit, setEditSubmit] = useState<boolean>(false);
+  const [remove_product, setRemoveProduct] = useState<boolean>(false);
 
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
 
   useEffect(() => {
-    console.log("\nUseEffect fire")
-    edit_product();
-  }, [edit_submit])
+    console.log("\n\tEdit Product useEffect");
+    if (edit_submit === true) {
+      edit_product();
+      setRefresh(true);
+    } else {
+      setCategory({
+        name: false,
+        description: false,
+        price: false,
+        quantity: false
+      });
+      setInputValue({
+        product_id: product.product_id,
+        name: product.name,
+        description: product.description,
+        price: Number(product.price),
+        quantity: Number(product.quantity),
+      });
+    }
+  }, [edit_submit, product])
+
+  useEffect(() => {
+    console.log("\n\tRemove product useEffect");
+    if (remove_product === true && product.product_id != null) {
+      console.log("\nRemoving product with product_id", product.product_id);
+      invoke<String>('remove_product', { productId: product.product_id })
+        .then(result => console.log("\nResult from remove_product:", result))
+        .catch(console.error)
+      setRemoveProduct(false);
+      setSelected(null);
+      setRefresh(true);
+    } else {
+      console.log("\nremove_product is false, but useEffect fired anyway,", product.product_id);
+      setRemoveProduct(false);
+    }
+  }, [remove_product])
 
   async function edit_product() {
     try {
-      console.log("\nEdit product function");
       if (edit_submit === true) {
-        console.log("\n\tSENDING\t\n");
-        const response = await invoke('edit_product', { product: input_value });
-        console.log("Response from edit_product:", response);
+        console.log("\nEditing product\n");
+        await invoke('edit_product', { product: input_value });
         clean();
       } else if (typeof (!input_value.price) === "number") {
         console.error("\nPrice is not a number, Edit submit:{edit_submit}, type_of_price:{typeof(input_value.price)}");
-      } else {
-        console.log("\nEdit submit is false, {edit_submit}")
       };
       setEditSubmit(false);
     } catch (error) {
-      console.error(error);
+      console.error("\nError in edit_product:", error);
     }
   }
 
-  function addToCart(product: cart_product) {
+  function addToCart(product: Product) {
     try {
       setCart((prev) => {
         const product_exists = prev.find(item => item.product_id === product.product_id);
@@ -79,14 +112,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     setCategory({
       name: false,
       description: false,
-      price: false
+      price: false,
+      quantity: false
     });
     setInputValue({
       product_id: product.product_id,
       name: product.name,
       description: product.description,
       price: Number(product.price),
-      quantity: product.quantity,
+      quantity: Number(product.quantity),
     });
     setSelected(null);
     setEditSubmit(false);
@@ -118,12 +152,14 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               </svg>
             </button>
             {product?.image ? (
-              <img
-                src={product.image}
-                alt={product.name}
-                loading="lazy"
-                className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
-              />
+              <div className="flex relative w-full h-96 items-center">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  className="flex relative object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
+                />
+              </div>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-2xl">
                 <span className="text-gray-300 text-lg font-semibold">No Image Available</span>
@@ -131,7 +167,6 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             )}
           </div>
         </div>
-        {/* Form Start */}
         {!edit ?
           <div className="p-6 space-y-4">
             <div className="flex flex-row-reverse w-full justify-between">
@@ -139,7 +174,8 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 setEdit(!edit), setCategory({
                   name: false,
                   description: false,
-                  price: false
+                  price: false,
+                  quantity: false
                 }
                 )
               }
@@ -154,16 +190,21 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             </div>
 
             {/*Description*/}
-            <div>
-              <p className="text-md text-gray-300 leading-relaxed tracking-wide">
-                {product?.description}
+            <p className="text-md text-gray-300 leading-relaxed tracking-wide">
+              {product?.description}
+            </p>
+            <div className="flex flex-row items-center justify-between">
+              {/*Price*/}
+              <p className="flex gap-4 items-center text-xl font-semibold text-green-300">
+                ${product?.price}<span className="text-sm text-green-100">Price</span>
+              </p>
+
+              {/*Quantity*/}
+              <p className="flex gap-4  items-center text-xl font-semibold text-blue-300">
+                <span className="text-sm text-blue-100">Quantity</span>{product?.quantity}
               </p>
             </div>
 
-            {/*Price*/}
-            <p className="text-xl font-semibold text-blue-300">
-              ${product?.price.toFixed(2)}
-            </p>
             <div className="w-full flex flex-row gap-5">
               <div className="w-full flex flex-row gap-5">
                 <button
@@ -212,106 +253,106 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             }
           </div>
           :
-          <form onSubmit={handle_submit} className="p-6 space-y-4">
-            <div className="flex flex-row-reverse w-full justify-between">
+          <form onSubmit={handle_submit} className="z-50 top-0 p-4 space-y-5">
+            <div className="flex w-full items-center justify-end">
               <button onClick={() => {
                 setEdit(!edit), setCategory({
                   name: false,
                   description: false,
-                  price: false
+                  price: false,
+                  quantity: false
                 }
                 )
               }
-              } className="flex items-center justify-center text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
-                <span className="leading-none">Edit</span>
+              } className="text-white px-6 py-1 rounded-md bg-gray-800 hover:bg-gray-700 active:bg-gray-900 right-0 top-0 z-0">
+                <span>Edit</span>
               </button>
-
-              {/*Name*/}
-              <div className="relative w-full">
-                <button onClick={() => change_state('name')} className=" ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700 text-2xl font-bold text-gray-100"> {!category.name && name} </button>
-                <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
-                  <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full max-w-xl h-full">
-                    <input
-                      type="text"
-                      maxLength={1000}
-                      placeholder={input_value.name}
-                      id="name"
-                      value={input_value.name}
-                      onChange={(e) => {
-                        setInputValue((prev) => ({
-                          ...prev,
-                          name: e.target.value,
-                        }))
-                        change_state('name')
-                      }}
-                      className="w-full mr-5 px-2 py-4 text-2xl text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
+
+            {/*Name*/}
+            <input
+              type="text"
+              maxLength={1000}
+              placeholder={input_value.name}
+              id="name"
+              value={input_value.name}
+              onChange={(e) => {
+                setInputValue((prev) => ({
+                  ...prev,
+                  name: e.target.value,
+                }))
+                change_state('name')
+              }}
+              className="inset-ring inset-ring-blue-300 rounded-sm w-full mr-5 px-2 py-2 text-2xl text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none  placeholder-gray-400 transition-all duration-300 focus:inset-ring-purple-400 focus:border-transparent"
+            />
+
             {/*Description*/}
-            <div className="relative flex flex-col gap-5 items-start justify-center ">
-              <button onClick={() => change_state('description')} className="ease-in-out duration-100 text-gray-400 text-left leading-relaxed active:bg-gray-900 hover:bg-gray-700">
-                `{product?.description}`
-              </button>
-              <div className="absolute inset-0 flex items-start justify-start w-full h-full z-50 backdrop-blur-lg">
-                <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full max-w-xl h-full">
-                  <textarea
-                    maxLength={1000}
-                    placeholder={input_value.description}
-                    name="description"
-                    value={input_value.description}
-                    onChange={
-                      (e) => {
-                        setInputValue((prev) => ({
-                          ...prev,
-                          description: e.target.value,
-                        })),
-                          change_state('description')
-                      }
-                    }
-                    style={{ resize: 'none' }}
-                    className="w-full mr-5 bg-gray-800 z-50 px-2 py-2 text-md overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                  />
-                </div>
-              </div>
+            <div className="flex flex-row inset-ring inset-ring-blue-300 rounded-sm w-full max-w-xl h-auto">
+              <textarea
+                maxLength={2000}
+                placeholder={input_value.description}
+                name="description"
+                value={input_value.description}
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    })),
+                      change_state('description')
+                  }
+                }
+                style={{ resize: 'none' }}
+                className="w-full bg-gray-800 z-50 h-20 px-2 py-2 text-md overflow-scroll focus:outline-none text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:inset-ring focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
             </div>
 
-            <div className="relative flex flex-col gap-5 items-start justify-center ">
-              <button onClick={() => change_state('price')} className="my-2 mx-1 ease-in-out duration-100 text-gray-400 leading-relaxed active:bg-gray-900 hover:bg-gray-700">
-                `${product?.price.toFixed(2)}`
-              </button>
-              <div className="absolute inset-0 flex items-start justify-start w-32 z-50 backdrop-blur-lg">
-                <div className="flex flex-row gap-2 bg-gray-900 shadow-xl w-full text-xl max-w-xl h-full">
-                  <input
-                    type="number"
-                    maxLength={1000}
-                    placeholder={`${product.price}`}
-                    value={input_value.price}
-                    name="price"
-                    onChange={
-                      (e) => {
+            <div className="w-full relative flex flex-row items-center justify-between">
+              <input
+                aria-label="price"
+                type="number"
+                maxLength={1000}
+                placeholder={`${product.price}`}
+                value={input_value.price}
+                name="price"
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      price: Number(e.target.value),
+                    }))
+                    change_state('price')
+                  }
+                }
+                min="1"
+                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
 
-                        setInputValue((prev) => ({
-                          ...prev,
-                          price: Number(e.target.value),
-                        }))
-                        change_state('price')
-                      }
-                    }
-                    min="1"
-                    className="w-full mr-5 px-4 py-2 text-md overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-700 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-                  />
-                </div>
-              </div>
+              <input
+                type="number"
+                maxLength={1000}
+                placeholder={`${product.quantity}`}
+                value={input_value.quantity}
+                name="quantity"
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      quantity: Number(e.target.value),
+                    }))
+                    change_state('quantity')
+                  }
+                }
+                min="0"
+                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
             </div>
 
             {/*Submit cancel buttons */}
             <div className="w-full flex flex-row gap-5">
               <button
                 onClick={() => {
-                  if (!category.name && !category.description && !category.price) {
+                  if (!category.name && !category.description && !category.price && !category.quantity) {
                     return;
                   }
                   setEditSubmit(true);
@@ -321,7 +362,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   hover:bg-green-700 hover:shadow-lg 
   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 
   active:bg-green-800 
-  ${(!category.name && !category.description && !category.price)
+  ${(!category.name && !category.description && !category.price && !category.quantity)
                     ? "cursor-not-allowed pointer-events-none bg-gray-700"
                     : "cursor-pointer bg-green-600"
                   }`}
@@ -344,6 +385,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             </div>
           </form>
         }
+        <div className="w-full flex items-center justify-center">
+          <button
+            onClick={() => setRemoveProduct(true)}
+            className={`
+              w-1/2 py-3 rounded-lg shadow-md transition duration-300 ease-in-out active:bg-red-800 bg-white text-black font-bold focus:ring-red-400 hover:text-white hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2`}
+          >
+            Delete Item
+          </button>
+        </div>
       </div>
     </div >
   );
