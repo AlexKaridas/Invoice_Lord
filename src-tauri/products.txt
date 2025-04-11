@@ -58,3 +58,842 @@ Price: $349.99
 Quantity: 10  
 Image: https://images.unsplash.com/photo-1720048169387-84bbb8fd8ec9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D 
 
+11.Name: Apple MacBook Air (M3 Chip, 13-inch)
+Description: Apple's latest ultra-portable laptop with the powerful M3 chip, offering incredible performance and battery life.
+Price: $1099.00
+Quantity: 7
+Image: https://images.unsplash.com/photo-1702544998815-2481ff21993d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+12.Name: Sony WH-1000XM5 Noise Cancelling Headphones
+Description: Industry-leading noise cancellation headphones with exceptional sound quality and comfortable design.
+Price: $348.00
+Quantity: 15
+Image: https://images.unsplash.com/photo-1664308385306-b7386525f011?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+13.Name: Samsung 65-inch QLED 4K Smart TV
+Description: A stunning QLED TV with vibrant colors, sharp details, and smart features for an immersive viewing experience.
+Price: $1299.99
+Quantity: 5
+Image: https://images.unsplash.com/photo-1629131881318-069a89766e51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8M3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+14.Name: Canon EOS R5 Mirrorless Camera
+Description: A professional-grade mirrorless camera with a high-resolution sensor and advanced autofocus capabilities for photographers and videographers.
+Price: $3899.00
+Quantity: 2
+Image: https://images.unsplash.com/photo-1523995462486-385107b0a08b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+15.Name: Yeti Rambler 36 oz Bottle
+Description: A durable and insulated water bottle that keeps drinks cold or hot for hours.
+Price: $45.00
+Quantity: 20
+Image: https://images.unsplash.com/photo-1621957454986-091c11846714?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+16.Name: Nintendo Switch OLED Model
+Description: The latest Nintendo Switch with a vibrant OLED screen for enhanced handheld gaming.
+Price: $349.00
+Quantity: 12
+Image: https://images.unsplash.com/photo-1633357407868-5015373b4944?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+17.Name: Amazon Echo (5th Gen)
+Description: A smart speaker with Alexa that offers improved audio quality and smart home control.
+Price: $99.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8N3x8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+18.Name: Fitbit Charge 6 Fitness Tracker
+Description: A comprehensive fitness tracker that monitors heart rate, activity levels, sleep, and more.
+Price: $159.95
+Quantity: 18
+Image: https://images.unsplash.com/photo-1625784318599-42b019334a44?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OXx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+19.Name: LEGO Technic Bugatti Chiron
+Description: A detailed LEGO Technic model of the iconic Bugatti Chiron sports car.
+Price: $379.99
+Quantity: 6
+Image: https://images.unsplash.com/photo-1591151371232-95858914703c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+20.Name: Bose QuietComfort Earbuds II
+Description: Premium wireless earbuds with exceptional noise cancellation and personalized sound.
+Price: $279.00
+Quantity: 11
+Image: https://images.unsplash.com/photo-1671772377718-a4916439282f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+21.Name: KitchenAid Stand Mixer (Artisan Series)
+Description: A versatile and powerful stand mixer perfect for baking enthusiasts.
+Price: $449.00
+Quantity: 9
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+22.Name: Apple iPad Pro 12.9-inch (Wi-Fi, 256GB)
+Description: Apple's high-end tablet with a stunning Liquid Retina XDR display and powerful performance.
+Price: $1299.00
+Quantity: 4
+Image: https://images.unsplash.com/photo-1618424186738-b1142398e0fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+23.Name: Samsung Galaxy S24 Ultra
+Description: Samsung's flagship smartphone with a powerful camera system and innovative features.
+Price: $1299.99
+Quantity: 10
+Image: https://images.unsplash.com/photo-1705237344455-8b170818b609?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+24.Name: Dyson V15 Detect Absolute Cordless Vacuum Cleaner
+Description: A powerful and intelligent cordless vacuum cleaner with laser detection for hidden dust.
+Price: $749.00
+Quantity: 7
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+25.Name: Herman Miller Aeron Chair
+Description: An ergonomic office chair designed for comfort and support during long work hours.
+Price: $1795.00
+Quantity: 3
+Image: https://images.unsplash.com/photo-1631199748797-83ff88d9111a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+26.Name: Philips Hue White and Color Ambiance Smart Bulbs (Pack of 4)
+Description: Smart LED bulbs that can be controlled with your voice or phone, offering millions of colors and white light options.
+Price: $199.99
+Quantity: 15
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+27.Name: Breville Barista Express Espresso Machine
+Description: A bean-to-cup espresso machine that allows you to grind fresh beans and brew barista-quality coffee at home.
+Price: $749.95
+Quantity: 5
+Image: https://images.unsplash.com/photo-1607988516404-517b619113d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+28.Name: Kindle Paperwhite (16 GB)
+Description: A waterproof e-reader with a high-resolution display and weeks of battery life.
+Price: $139.99
+Quantity: 20
+Image: https://images.unsplash.com/photo-1610939173830-1c452c747e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+29.Name: GoPro HERO12 Black
+Description: A rugged and waterproof action camera capable of capturing high-quality video and photos in extreme conditions.
+Price: $399.99
+Quantity: 8
+Image: https://images.unsplash.com/photo-1683527893731-2f41883a6e36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+30.Name: Instant Pot Duo Plus 9-in-1 Electric Pressure Cooker
+Description: A versatile kitchen appliance that can pressure cook, slow cook, steam, sauté, and more.
+Price: $129.99
+Quantity: 12
+Image: https://images.unsplash.com/photo-1621957571618-e645497096b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+31.Name: Samsung 990 Pro 2TB NVMe SSD
+Description: A high-performance PCIe 4.0 NVMe SSD for demanding tasks and gaming.
+Price: $179.99
+Quantity: 18
+Image: https://images.unsplash.com/photo-1634128873832-719a13491d98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+32.Name: LG 27-inch UltraGear QHD Gaming Monitor
+Description: A high refresh rate gaming monitor with vibrant colors and low response time.
+Price: $399.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1610785117368-310c6113b341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+33.Name: Logitech G Pro X Superlight Wireless Gaming Mouse
+Description: An ultra-lightweight wireless gaming mouse favored by esports professionals.
+Price: $159.99
+Quantity: 22
+Image: https://images.unsplash.com/photo-1617941525849-116573295319?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+34.Name: Corsair Vengeance LPX 32GB (2x16GB) DDR5 RAM
+Description: High-speed DDR5 RAM for improved system performance in gaming and content creation.
+Price: $129.99
+Quantity: 15
+Image: https://images.unsplash.com/photo-1634128873832-719a13491d98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+35.Name: Sennheiser HD 660S Open-Back Headphones
+Description: Audiophile-grade open-back headphones known for their detailed and natural sound.
+Price: $499.95
+Quantity: 8
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+36.Name: Rode NT-USB+ Professional USB Microphone
+Description: A high-quality USB microphone perfect for podcasting, streaming, and recording music.
+Price: $169.00
+Quantity: 12
+Image: https://images.unsplash.com/photo-1622543706151-9959656f63e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mjk8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+37.Name: Elgato Stream Deck MK.2
+Description: A powerful control surface with customizable buttons for streamers and content creators.
+Price: $149.99
+Quantity: 16
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+38.Name: Secretlab Titan Evo 2022 Gaming Chair
+Description: A highly adjustable and comfortable gaming chair designed for long gaming sessions.
+Price: $549.00
+Quantity: 7
+Image: https://images.unsplash.com/photo-1614031217435-42f809621309?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+39.Name: BenQ Mobiuz EX2710U 4K Gaming Monitor
+Description: A 4K gaming monitor with a fast refresh rate and immersive HDR visuals.
+Price: $699.99
+Quantity: 9
+Image: https://images.unsplash.com/photo-1610785117368-310c6113b341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+40.Name: Keychron Q1 Pro QMK/VIA Wireless Custom Mechanical Keyboard
+Description: A fully customizable wireless mechanical keyboard with a premium build and typing experience.
+Price: $219.00
+Quantity: 11
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+41.Name: Apple Watch Series 9 (GPS + Cellular, 45mm)
+Description: Apple's latest smartwatch with advanced health tracking and connectivity features.
+Price: $529.00
+Quantity: 14
+Image: https://images.unsplash.com/photo-1695653618853-3097509479c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+42.Name: Samsung Galaxy Tab S9 Ultra
+Description: Samsung's premium Android tablet with a large, vibrant display and S Pen support.
+Price: $1199.99
+Quantity: 6
+Image: https://images.unsplash.com/photo-1676702942307-1227931974a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+43.Name: Google Pixel 8 Pro
+Description: Google's flagship smartphone with an exceptional camera and AI-powered features.
+Price: $999.00
+Quantity: 17
+Image: https://images.unsplash.com/photo-1697499449936-b925411171c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+44.Name: Sony PlayStation 5
+Description: A popular gaming console with powerful hardware and immersive gaming experiences.
+Price: $499.99
+Quantity: 5
+Image: https://images.unsplash.com/photo-1606858247885-5e592101b318?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mzc8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+45.Name: Xbox Series X
+Description: Microsoft's powerful gaming console with fast loading times and a vast game library.
+Price: $499.99
+Quantity: 7
+Image: https://images.unsplash.com/photo-1606858247885-5e592101b318?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mzg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+46.Name: Oculus Quest 3 (128GB)
+Description: A standalone VR headset with high-resolution visuals and immersive gameplay.
+Price: $499.00
+Quantity: 9
+Image: https://images.unsplash.com/photo-1630527727719-9f2c9c542156?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mzl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+47.Name: DJI Air 3 Drone
+Description: A versatile drone with dual primary cameras, 4K/60fps HDR video, and extended flight time.
+Price: $1099.00
+Quantity: 4
+Image: https://images.unsplash.com/photo-1690256659831-21077111012a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+48.Name: GoPro MAX 360 Action Camera
+Description: A 360-degree action camera that captures immersive spherical video and photos.
+Price: $499.99
+Quantity: 6
+Image: https://images.unsplash.com/photo-1600853082708-0381982c8199?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+49.Name: Sony a7 IV Full-Frame Mirrorless Camera
+Description: A versatile full-frame mirrorless camera excellent for both photography and videography.
+Price: $2499.00
+Quantity: 3
+Image: https://images.unsplash.com/photo-1635280820782-15a9c976963a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+50.Name: Fujifilm X100VI Digital Camera
+Description: A stylish and compact APS-C camera with a fixed lens, known for its exceptional image quality.
+Price: $1599.00
+Quantity: 2
+Image: https://images.unsplash.com/photo-1710866249359-820693913104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+51.Name: DJI Osmo Mobile 6 Smartphone Gimbal
+Description: A compact and foldable smartphone gimbal for smooth and professional-looking videos.
+Price: $159.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1677488308205-03291c648591?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+52.Name: Apple AirPods Max
+Description: Premium over-ear headphones with high-fidelity audio and active noise cancellation.
+Price: $549.00
+Quantity: 6
+Image: https://images.unsplash.com/photo-1602078779863-342551563135?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+53.Name: Samsung Odyssey G9 49-inch Curved Gaming Monitor
+Description: An ultra-wide curved gaming monitor for an incredibly immersive gaming experience.
+Price: $1499.99
+Quantity: 3
+Image: https://images.unsplash.com/photo-1610785117368-310c6113b341?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+54.Name: LG C3 65-inch OLED evo 4K Smart TV
+Description: A top-of-the-line OLED TV with perfect blacks, vibrant colors, and advanced smart features.
+Price: $2599.00
+Quantity: 2
+Image: https://images.unsplash.com/photo-1617854489608-a1a6992375fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+55.Name: Bose Smart Soundbar 900
+Description: A premium smart soundbar with immersive Dolby Atmos sound and built-in voice assistants.
+Price: $899.00
+Quantity: 8
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+56.Name: Sonos Era 300 Wireless Smart Speaker
+Description: A revolutionary smart speaker with spatial audio for an immersive listening experience.
+Price: $449.00
+Quantity: 11
+Image: https://images.unsplash.com/photo-1682686580293-d33e1735a742?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NDl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+57.Name: Garmin Forerunner 965 GPS Running Watch
+Description: A premium GPS running watch with advanced training metrics and a bright AMOLED display.
+Price: $599.99
+Quantity: 5
+Image: https://images.unsplash.com/photo-1684005971558-538903333407?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+58.Name: Specialized S-Works Tarmac SL7 Road Bike
+Description: A high-performance road bike designed for speed and agility.
+Price: $14000.00
+Quantity: 1
+Image: https://images.unsplash.com/photo-1626704939207-5258819a476c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+59.Name: Trek Fuel EX 9.8 GX AXS Mountain Bike
+Description: A versatile full-suspension mountain bike for trail riding and all-mountain adventures.
+Price: $7299.99
+Quantity: 2
+Image: https://images.unsplash.com/photo-1604746868895-b9161600b22f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+60.Name: Weber Genesis EX-335 Smart Gas Grill
+Description: A smart gas grill with connected features for perfect grilling results.
+Price: $1149.00
+Quantity: 4
+Image: https://images.unsplash.com/photo-1627308595275-65e193562288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+61.Name: Breville Smart Oven Air Fryer Pro
+Description: A versatile countertop oven with air frying capabilities and multiple cooking functions.
+Price: $349.95
+Quantity: 12
+Image: https://images.unsplash.com/photo-1621957571618-e645497096b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+62.Name: Vitamix A3500 Ascent Series Smart Blender
+Description: A high-performance blender with multiple settings and a sleek design for smoothies, soups, and more.
+Price: $649.95
+Quantity: 7
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+63.Name: Instant Pot Air Fryer Lid
+Description: An attachment that turns your Instant Pot into an air fryer.
+Price: $79.99
+Quantity: 18
+Image: https://images.unsplash.com/photo-1621957571618-e645497096b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+64.Name: Ninja Foodi Smart XL 6-in-1 Indoor Grill
+Description: An indoor grill that also air fries, roasts, bakes, broils, and dehydrates.
+Price: $279.99
+Quantity: 9
+Image: https://images.unsplash.com/photo-1627308595275-65e193562288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+65.Name: Fellow Stagg EKG Electric Pour-Over Kettle
+Description: A stylish and precise electric kettle for pour-over coffee brewing.
+Price: $195.00
+Quantity: 11
+Image: https://images.unsplash.com/photo-1610145584064-1238754a516a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+66.Name: AeroPress Original Coffee Maker
+Description: A simple and effective coffee maker that brews smooth, rich coffee quickly.
+Price: $39.95
+Quantity: 25
+Image: https://images.unsplash.com/photo-1582883947120-f4c978871f7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+67.Name: Bodum Chambord French Press Coffee Maker
+Description: A classic French press for a full-bodied and flavorful coffee brew.
+Price: $45.00
+Quantity: 20
+Image: https://images.unsplash.com/photo-1543827593-14d7359d3d95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+68.Name: OXO Brew Conical Burr Coffee Grinder
+Description: A consistent and reliable burr grinder for freshly ground coffee.
+Price: $99.99
+Quantity: 15
+Image: https://images.unsplash.com/photo-1607988516404-517b619113d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+69.Name: Hario V60 Pour-Over Kit
+Description: A popular pour-over setup for manual coffee brewing.
+Price: $30.00
+Quantity: 22
+Image: https://images.unsplash.com/photo-1582883947120-f4c978871f7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+70.Name: Chemex Classic Series Pour-Over Coffee Maker
+Description: An elegant and iconic pour-over coffee maker known for its clean brew.
+Price: $48.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1543827593-14d7359d3d95?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+71.Name: KitchenAid 7-Speed Hand Mixer
+Description: A convenient and powerful hand mixer for various baking tasks.
+Price: $59.99
+Quantity: 16
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+72.Name: Cuisinart Food Processor (14-Cup)
+Description: A versatile food processor for slicing, dicing, shredding, and more.
+Price: $249.00
+Quantity: 8
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+73.Name: Le Creuset Enameled Cast Iron Dutch Oven (5.5 Quart)
+Description: A durable and iconic Dutch oven perfect for braising, stewing, and baking.
+Price: $420.00
+Quantity: 5
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+74.Name: All-Clad D3 Stainless Steel Fry Pan (12-inch)
+Description: A high-quality stainless steel fry pan for even heating and excellent cooking performance.
+Price: $170.00
+Quantity: 12
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Njd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+75.Name: Wüsthof Classic 8-Inch Chef's Knife
+Description: A high-quality and versatile chef's knife essential for any kitchen.
+Price: $169.95
+Quantity: 10
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Njg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+76.Name: Shun Classic 7-Inch Santoku Knife
+Description: A Japanese-style knife known for its precision and versatility in the kitchen.
+Price: $149.95
+Quantity: 14
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Njk8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+77.Name: OXO Good Grips Salad Spinner
+Description: An efficient and easy-to-use salad spinner for washing and drying greens.
+Price: $29.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+78.Name: Pyrex Smart Essentials Mixing Bowl Set (3-Piece)
+Description: A set of durable and versatile glass mixing bowls for all your kitchen needs.
+Price: $24.99
+Quantity: 30
+Image: https://images.unsplash.com/photo-1627380698482-519189925193?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+79.Name: Nordic Ware Baking Sheets (Set of 2)
+Description: Durable and non-stick baking sheets for even baking.
+Price: $20.00
+Quantity: 28
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+80.Name: Lodge Cast Iron Skillet (12-inch)
+Description: A durable and versatile cast iron skillet for searing, frying, and baking.
+Price: $35.00
+Quantity: 22
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+81.Name: Pendleton Wool Blanket (Queen Size)
+Description: A warm and high-quality wool blanket with a classic design.
+Price: $399.00
+Quantity: 6
+Image: https://images.unsplash.com/photo-1544730914-0b79fa5f1779?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+82.Name: Casper Sleep Original Pillow
+Description: A supportive and comfortable pillow designed for all sleep positions.
+Price: $89.00
+Quantity: 15
+Image: https://images.unsplash.com/photo-1556228453-efd6c1ff03f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+83.Name: Brooklinen Luxe Core Sheet Set (Queen Size)
+Description: High-quality and comfortable cotton sheets for a luxurious sleep experience.
+Price: $299.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NzZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+84.Name: Dyson Purifier Cool Formaldehyde TP09
+Description: An air purifier that removes pollutants, allergens, and even formaldehyde from the air.
+Price: $699.00
+Quantity: 4
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzc8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+85.Name: Levoit Core 300S Air Purifier
+Description: A compact and effective air purifier for small to medium-sized rooms.
+Price: $99.99
+Quantity: 20
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+86.Name: Molekule Air Pro Air Purifier
+Description: A high-tech air purifier that uses PECO technology to destroy pollutants.
+Price: $799.00
+Quantity: 3
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nzk8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+87.Name: Bissell Little Green Portable Carpet Cleaner
+Description: A handy portable carpet cleaner for tackling spills and stains.
+Price: $124.00
+Quantity: 15
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODAwfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+88.Name: iRobot Roomba 694 Robot Vacuum
+Description: A reliable robot vacuum that cleans floors automatically.
+Price: $274.99
+Quantity: 18
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODE8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+89.Name: Dyson Gen5detect Absolute Cordless Vacuum
+Description: Dyson's most powerful cordless vacuum with advanced features and attachments.
+Price: $949.00
+Quantity: 6
+Image: https://images.unsplash.com/photo-1610374458424-a02130ca4681?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+90.Name: Sonos Move 2 Portable Smart Speaker
+Description: A powerful and portable smart speaker with excellent sound quality and Wi-Fi/Bluetooth connectivity.
+Price: $449.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1682686580293-d33e1735a742?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODM8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+91.Name: Marshall Stanmore II Wireless Bluetooth Speaker
+Description: A classic-looking Bluetooth speaker with powerful sound and iconic design.
+Price: $379.99
+Quantity: 8
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+92.Name: JBL Flip 6 Portable Waterproof Bluetooth Speaker
+Description: A rugged and waterproof portable Bluetooth speaker with impressive sound.
+Price: $129.95
+Quantity: 22
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+93.Name: Sony SRS-XB13 Extra BASS Wireless Portable Speaker
+Description: A compact and portable Bluetooth speaker with enhanced bass.
+Price: $59.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODY8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+94.Name: Apple HomePod (2nd Generation)
+Description: A smart speaker with Siri that delivers rich, high-fidelity audio.
+Price: $299.00
+Quantity: 12
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+95.Name: Google Nest Hub (2nd Gen)
+Description: A smart display with Google Assistant for controlling your smart home and getting information.
+Price: $99.99
+Quantity: 18
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+96.Name: Amazon Fire TV Stick 4K Max
+Description: A powerful streaming stick with support for 4K Ultra HD, Dolby Vision, and Alexa voice remote.
+Price: $59.99
+Quantity: 30
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODk8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+97.Name: Roku Streaming Stick 4K+
+Description: A fast and easy-to-use streaming stick with a voice remote and support for 4K HDR.
+Price: $49.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+98.Name: NVIDIA SHIELD TV Pro
+Description: A powerful Android TV device for streaming, gaming, and smart home control.
+Price: $199.99
+Quantity: 14
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTF8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+99.Name: Apple TV 4K (3rd Generation)
+Description: Apple's streaming device with support for 4K HDR and a redesigned Siri Remote.
+Price: $129.00
+Quantity: 16
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+100.Name: Samsung 55-inch The Frame QLED 4K Smart TV
+Description: A unique TV that doubles as a digital art display when not in use.
+Price: $1499.00
+Quantity: 3
+Image: https://images.unsplash.com/photo-1629131881318-069a89766e51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+101.Name: Sony 77-inch BRAVIA XR A80L OLED 4K TV
+Description: A premium OLED TV with exceptional picture quality and immersive sound.
+Price: $3499.99
+Quantity: 2
+Image: https://images.unsplash.com/photo-1629131881318-069a89766e51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+102.Name: TCL 65-inch 6-Series 4K Mini-LED QLED Smart TV
+Description: A high-performance TV with Mini-LED backlighting for excellent brightness and contrast.
+Price: $999.99
+Quantity: 7
+Image: https://images.unsplash.com/photo-1629131881318-069a89766e51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTV8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+103.Name: Hisense 55-inch U8K Series Mini-LED QLED 4K Smart TV
+Description: A feature-rich TV with Mini-LED technology and a great value proposition.
+Price: $799.99
+Quantity: 10
+Image: https://images.unsplash.com/photo-1629131881318-069a89766e51?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+104.Name: Epson Home Cinema 4010 4K PRO-UHD Projector
+Description: A high-quality home theater projector with excellent brightness and image detail.
+Price: $1999.00
+Quantity: 3
+Image: https://images.unsplash.com/photo-1517604989258-514115e3986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTd8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+105.Name: BenQ HT2050A 1080p Home Theater Projector
+Description: A popular and affordable 1080p projector for home theater enthusiasts.
+Price: $749.00
+Quantity: 5
+Image: https://images.unsplash.com/photo-1517604989258-514115e3986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTg8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+106.Name: Optoma HD28HDR 1080p Home Theater Projector
+Description: A bright and compact 1080p projector with HDR support for vibrant visuals.
+Price: $649.00
+Quantity: 8
+Image: https://images.unsplash.com/photo-1517604989258-514115e3986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8OTl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+107.Name: Anker Nebula Capsule 3 Laser Projector
+Description: A portable mini projector with laser technology for a bright and sharp image.
+Price: $549.99
+Quantity: 12
+Image: https://images.unsplash.com/photo-1517604989258-514115e3986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTAwfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+108.Name: Samsung Freestyle Portable Projector
+Description: A versatile and portable projector that can project onto various surfaces.
+Price: $799.00
+Quantity: 6
+Image: https://images.unsplash.com/photo-1517604989258-514115e3986d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTAxfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+109.Name: Apple 20W USB-C Power Adapter
+Description: An official Apple power adapter for charging iPhones and iPads.
+Price: $19.00
+Quantity: 50
+Image: https://images.unsplash.com/photo-1610939173830-1c452c747e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTAyfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+110.Name: Anker PowerCore III Elite Portable Charger
+Description: A high-capacity portable charger for phones, tablets, and laptops.
+Price: $69.99
+Quantity: 35
+Image: https://images.unsplash.com/photo-1610939173830-1c452c747e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTAzfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+111.Name: Belkin Wireless Charging Pad (15W)
+Description: A convenient wireless charging pad for Qi-enabled devices.
+Price: $39.99
+Quantity: 40
+Image: https://images.unsplash.com/photo-1610939173830-1c452c747e7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA0fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+112.Name: SanDisk 1TB Extreme Portable SSD
+Description: A rugged and high-speed portable SSD for storing and transferring large files.
+Price: $119.99
+Quantity: 28
+Image: https://images.unsplash.com/photo-1634128873832-719a13491d98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA1fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+113.Name: WD My Passport 2TB Portable External Hard Drive
+Description: A reliable and affordable portable external hard drive for backup and storage.
+Price: $79.99
+Quantity: 32
+Image: https://images.unsplash.com/photo-1634128873832-719a13491d98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA2fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+114.Name: Seagate Expansion 4TB Desktop External Hard Drive
+Description: A high-capacity desktop external hard drive for storing large amounts of data.
+Price: $99.99
+Quantity: 20
+Image: https://images.unsplash.com/photo-1634128873832-719a13491d98?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA3fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+115.Name: Tile Mate (2022) Bluetooth Tracker
+Description: A small Bluetooth tracker that helps you find your lost keys, wallet, or other items.
+Price: $24.99
+Quantity: 45
+Image: https://images.unsplash.com/photo-1598515796664-84652554937c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA4fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+116.Name: Apple AirTag
+Description: A small tracking device that helps you find your lost items using the Find My app.
+Price: $29.00
+Quantity: 50
+Image: https://images.unsplash.com/photo-1618424186738-b1142398e0fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTA5fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+117.Name: Samsung Galaxy SmartTag2
+Description: A Bluetooth and UWB tracker for finding your belongings with the SmartThings app.
+Price: $29.99
+Quantity: 40
+Image: https://images.unsplash.com/photo-1705237344455-8b170818b609?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTEwfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+118.Name: Amazon Smart Plug
+Description: A simple smart plug that allows you to control your appliances with your voice or phone.
+Price: $24.99
+Quantity: 60
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTExfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+119.Name: TP-Link Kasa Smart Wi-Fi Plug Mini (4-Pack)
+Description: A set of compact smart plugs for controlling multiple devices.
+Price: $39.99
+Quantity: 30
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTEyfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+120.Name: Wyze Plug Outdoor Smart Plug
+Description: A weatherproof smart plug for controlling outdoor lights and decorations.
+Price: $29.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTEzfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+121.Name: Philips Hue White A19 Smart Bulbs (4-Pack)
+Description: Smart LED bulbs that can be controlled with your voice or phone for basic lighting.
+Price: $49.99
+Quantity: 40
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE0fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+122.Name: LIFX Color 1000lm Wi-Fi Smart LED Bulb
+Description: A bright and colorful smart LED bulb that connects directly to Wi-Fi.
+Price: $59.99
+Quantity: 35
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE1fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+123.Name: TP-Link Kasa Smart Wi-Fi Light Switch
+Description: A smart light switch that allows you to control your lights with your voice or phone.
+Price: $24.99
+Quantity: 50
+Image: https://images.unsplash.com/photo-1616587849551-a31150060142?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE2fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+124.Name: Nest Learning Thermostat
+Description: A smart thermostat that learns your preferences and helps you save energy.
+Price: $249.00
+Quantity: 18
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE3fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+125.Name: ecobee Smart Thermostat with Voice Control
+Description: A smart thermostat with built-in Alexa voice control and room sensors.
+Price: $249.00
+Quantity: 15
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE4fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+126.Name: Wyze Cam v3 Pro Security Camera
+Description: A weatherproof indoor/outdoor security camera with 2K resolution and color night vision.
+Price: $59.99
+Quantity: 40
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTE5fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+127.Name: Ring Stick Up Cam Battery (3rd Gen)
+Description: A versatile wireless security camera that can be placed anywhere.
+Price: $99.99
+Quantity: 30
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTIw fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+128.Name: Arlo Pro 4 Spotlight Camera (3-Pack)
+Description: Wireless security cameras with 2K HDR video and integrated spotlights.
+Price: $499.99
+Quantity: 10
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTIxfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+129.Name: Blink Outdoor 4 Camera Kit
+Description: Wireless, battery-powered security cameras that work with Alexa.
+Price: $219.99
+Quantity: 25
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTIy fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+130.Name: August Wi-Fi Smart Lock (4th Gen)
+Description: A smart lock that allows you to control your door with your phone.
+Price: $229.99
+Quantity: 12
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTIzfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+131.Name: Yale Assure Lock SL with Wi-Fi
+Description: A key-free smart lock with a sleek touchscreen keypad and Wi-Fi connectivity.
+Price: $279.00
+Quantity: 8
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI0fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+132.Name: Schlage Encode Plus Smart Wi-Fi Deadbolt
+Description: A smart deadbolt with built-in Wi-Fi, allowing for remote access and control.
+Price: $299.00
+Quantity: 10
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI1fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+133.Name: Amazon eero Mesh WiFi System (3-pack)
+Description: A mesh Wi-Fi system that provides reliable and fast internet coverage throughout your home.
+Price: $249.00
+Quantity: 15
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI2fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+134.Name: Google Nest Wifi Pro (2-Pack)
+Description: A Wi-Fi 6E mesh system for fast and reliable wireless connectivity.
+Price: $399.00
+Quantity: 12
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI3fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+135.Name: NETGEAR Orbi WiFi 6E Mesh System (3-Pack)
+Description: A premium mesh Wi-Fi system with the latest Wi-Fi 6E technology for ultimate performance.
+Price: $699.99
+Quantity: 7
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI4fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+136.Name: TP-Link Archer AX5400 Wi-Fi 6 Router
+Description: A high-performance Wi-Fi 6 router for fast and reliable wireless internet.
+Price: $149.99
+Quantity: 20
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTI5fHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+137.Name: ASUS ROG Rapture GT-AX6000 Gaming Router
+Description: A powerful gaming router with advanced features for low latency and optimized performance.
+Price: $349.99
+Quantity: 5
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTMw fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+138.Name: NETGEAR Nighthawk XR1000 WiFi 6 Gaming Router
+Description: A gaming router designed for competitive gaming with advanced traffic prioritization.
+Price: $299.99
+Quantity: 9
+Image: https://images.unsplash.com/photo-1635353118173-95565399e19b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTMx fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+139.Name: Razer BlackWidow V3 Pro Wireless Mechanical Gaming Keyboard
+Description: A premium wireless mechanical gaming keyboard with customizable RGB lighting.
+Price: $229.99
+Quantity: 11
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTMy fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+140.Name: Corsair K100 RGB Mechanical Gaming Keyboard
+Description: A high-performance mechanical gaming keyboard with a durable aluminum frame and customizable macro keys.
+Price: $249.99
+Quantity: 7
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTMz fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+141.Name: Logitech G915 LIGHTSPEED Wireless RGB Mechanical Gaming Keyboard
+Description: A low-profile wireless mechanical gaming keyboard with fast response times and customizable lighting.
+Price: $249.99
+Quantity: 13
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM0 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+142.Name: SteelSeries Apex Pro Mechanical Gaming Keyboard
+Description: A customizable mechanical gaming keyboard with adjustable actuation points for each key.
+Price: $199.99
+Quantity: 9
+Image: https://images.unsplash.com/photo-1607791469894-330474b89a39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM1 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+143.Name: Razer DeathAdder V3 Pro Wireless Gaming Mouse
+Description: An ergonomic and lightweight wireless gaming mouse designed for competitive play.
+Price: $149.99
+Quantity: 16
+Image: https://images.unsplash.com/photo-1617941525849-116573295319?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM2 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+144.Name: Logitech G502 X PLUS Wireless Gaming Mouse
+Description: A feature-rich wireless gaming mouse with customizable buttons and adjustable weight.
+Price: $159.99
+Quantity: 14
+Image: https://images.unsplash.com/photo-1617941525849-116573295319?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM3 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+145.Name: SteelSeries Aerox 5 Wireless Gaming Mouse
+Description: A lightweight wireless gaming mouse with multiple side buttons for MMO and MOBA gaming.
+Price: $139.99
+Quantity: 11
+Image: https://images.unsplash.com/photo-1617941525849-116573295319?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM4 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+146.Name: HyperX Cloud III Wireless Gaming Headset
+Description: A comfortable and high-quality wireless gaming headset with clear audio.
+Price: $159.99
+Quantity: 18
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTM5 fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+147.Name: Logitech G735 Wireless Gaming Headset
+Description: A stylish and comfortable wireless gaming headset designed for all gamers.
+Price: $199.99
+Quantity: 15
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTQw fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+148.Name: SteelSeries Arctis Nova Pro Wireless Gaming Headset
+Description: A premium wireless gaming headset with active noise cancellation and dual wireless connectivity.
+Price: $349.99
+Quantity: 6
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTQx fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+149.Name: Turtle Beach Stealth 700 Gen 2 MAX Wireless Gaming Headset
+Description: A comfortable wireless gaming headset with long battery life and multiplatform compatibility.
+Price: $199.99
+Quantity: 10
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTQy fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+150.Name: EPOS H6PRO Closed Acoustic Gaming Headset
+Description: A high-quality wired gaming headset with excellent sound isolation and microphone clarity.
+Price: $179.00
+Quantity: 8
+Image: https://images.unsplash.com/photo-1606183694991-9f884438141e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTQz fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60

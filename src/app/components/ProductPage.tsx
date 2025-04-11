@@ -109,7 +109,6 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   };
 
   function clean() {
-    setRefresh(true);
     setCategory({
       name: false,
       description: false,

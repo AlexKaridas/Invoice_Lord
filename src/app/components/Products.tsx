@@ -8,6 +8,7 @@ import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
 import AddNewProductCard from './AddNewProductCard';
+import { p } from 'framer-motion/client';
 
 export default function Products() {
   const [selected, setSelected] = useState<Product | null>(null);
@@ -53,15 +54,32 @@ export default function Products() {
     }
   };
 
+  //TODO
+  //When the user clicks twice the sorting must change order
+  //Send 9 products at a time to improve loading speeds
 
   function sort_products(sorting: number): void {
+    let times_hit: number = 0;
     if (products !== null) {
       switch (sorting) {
         case 0: {
           console.log("\nSorting by name");
-          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.name.localeCompare(b.name));
-          setProducts(products_array);
-          break;
+          times_hit += 1;
+          if (times_hit === 1) {
+            console.log("\nAscending");
+            const products_array: Product[] | null = Object.values(products).sort((a, b) => a.name.localeCompare(b.name));
+            setProducts(products_array);
+            break;
+          }
+          else if (times_hit === 2) {
+            console.log("\nDescending");
+            break;
+          } else if (times_hit > 2) {
+            times_hit = 0;
+            break;
+          } else {
+            console.log("\nSomething else happened:", times_hit);
+          }
         }
         case 1: {
           console.log("\nSorting by price");
@@ -80,7 +98,8 @@ export default function Products() {
     }
   }
 
-  // JavaScript doesn't have a dedicated type for arrays; instead, it uses objects with numeric keys and a length property to simulate array behavior. 
+  // JavaScript doesn't have a dedicated type for arrays; 
+  // Instead, it uses objects with numeric keys and a length property to simulate array behavior. 
   // This is a reliable way to know if something is an array
   // console.log("type:", Array.isArray(products_array));
 

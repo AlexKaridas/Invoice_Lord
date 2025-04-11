@@ -33,10 +33,8 @@ fn main() {
 }
 
 //TODO:
-// Take all of products attributes instead of one category at a time when editing --Done
-// Also edit product quantity
-// Insert a new product
-// Remove a product entirely
+// Pagination
+// Send 9 products at a time to improve loading speeds
 // Final: Able to drag and drop a file inside and
 // Add or replace products and their attributes from the file
 

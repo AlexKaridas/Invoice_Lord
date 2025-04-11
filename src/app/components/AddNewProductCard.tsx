@@ -2,7 +2,7 @@ import { FormEvent } from "react";
 import { AddNewProductCardProps } from "../types"
 import { useState, useEffect } from "react";
 import { Product } from "../types";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/tauri";
 
 export default function AddNewProductCard({ products_length, setAddNewProduct, setRefresh }: AddNewProductCardProps) {
   const [new_product, setNewProduct] = useState<Product>({
