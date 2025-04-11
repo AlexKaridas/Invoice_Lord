@@ -52,89 +52,50 @@ fn db_start() -> Connection {
 #[command]
 fn welcome_screen() -> i32 {
     let db = db_start();
-    let table_exists = number_of_tables("user_preferences".to_string(), &db);
+    println!("\nChecking if value 1 exists in user table");
 
-    match table_exists {
-        0 => {
-            println!("\nInitializing table user");
-            db.execute(
-                "
-         CREATE TABLE IF NOT EXISTS user_preferences(
-         id INTEGER PRIMARY KEY AUTOINCREMENT,
-         key TEXT UNIQUE NOT NULL,   
-         value INTEGER DEFAULT 0
-             )
-         ",
-                (),
-            )
-            .expect("\nFailed to create user table");
-
-            println!("\nCreated user table");
-
-            let mut stmt = db
-                .prepare(
-                    "INSERT INTO user_preferences (key, value) VALUES ('welcome_screen_shown', ?);",
-                )
-                .expect("\nFailed to prepare statement for welcome_screen_shown_value update");
-            let rows_affected = stmt
-                .execute(params![1])
-                .expect("\nRows affected statement failed to execute for database");
-            if rows_affected == 0 {
-                println!("\nNo rows were updated. The 'key' might not exist.");
+    match db.query_row(
+        "SELECT value FROM user_preferences WHERE key = ?;",
+        ["welcome_screen_shown"],
+        |row| row.get::<_, i32>(0),
+    ) {
+        Ok(welcome_screen_shown_value) => {
+            println!("\nWelcome_screen_shown_value: {welcome_screen_shown_value}");
+            match welcome_screen_shown_value {
+                0 => {
+                    println!("\nPreparing to update user table: {welcome_screen_shown_value}");
+                    let mut stmt = db
+                        .prepare("UPDATE user SET value = ? WHERE key = 'welcome_screen_shown';")
+                        .expect(
+                            "Failed to prepare statement for welcome_screen_shown_value update",
+                        );
+                    let rows_affected = stmt
+                        .execute(params![1])
+                        .expect("Rows affected statement failed to execute for database");
+                    if rows_affected == 0 {
+                        panic!("No rows were updated. The 'key' might not exist.");
+                    }
+                    return 0;
+                }
+                1 => {
+                    println!("\nValue from user table is: {welcome_screen_shown_value}");
+                    return 1;
+                }
+                _ => {
+                    return 0;
+                }
             }
-
+        }
+        Err(rusqlite::Error::QueryReturnedNoRows) => {
+            println!(
+                "\nQueryReturnedNoRows:SELECT value FROM user_preferences WHERE key = ?1{:?}",
+                rusqlite::Error::QueryReturnedNoRows
+            );
             return 0;
         }
-        1 => {
-            println!("\nTable user exists:{table_exists}");
-            println!("\nChecking if value 1 exists in user table");
-
-            match db.query_row(
-                "SELECT value FROM user_preferences WHERE key = ?1",
-                ["welcome_screen_shown"],
-                |row| row.get::<_, i32>(0),
-            ) {
-                Ok(welcome_screen_shown_value) => {
-                    println!("\nWelcome_screen_shown_value: {welcome_screen_shown_value}");
-                    match welcome_screen_shown_value {
-                        0 => {
-                            println!(
-                            "\nPreparing to update user table wsshval:{welcome_screen_shown_value}"
-                        );
-                            let mut stmt = db
-                            .prepare(
-                                "UPDATE user SET value = ? WHERE key = 'welcome_screen_shown';",
-                            )
-                            .expect(
-                                "Failed to prepare statement for welcome_screen_shown_value update",
-                            );
-                            let rows_affected = stmt
-                                .execute(params![1])
-                                .expect("Rows affected statement failed to execute for database");
-                            if rows_affected == 0 {
-                                println!("No rows were updated. The 'key' might not exist.");
-                            }
-                            return 1;
-                        }
-                        1 => {
-                            println!("\nValue from user table is one:{welcome_screen_shown_value}");
-                            return 1;
-                        }
-                        _ => {
-                            panic!("\nWelcome_screen_shown_value:{welcome_screen_shown_value}");
-                        }
-                    }
-                }
-                Err(rusqlite::Error::QueryReturnedNoRows) => {
-                    panic!("\nQueryReturnedNoRows:SELECT value FROM user_preferences WHERE key = ?1{:?}", rusqlite::Error::QueryReturnedNoRows);
-                }
-                Err(err) => {
-                    panic!("\nUnknown error in user table: {:?}", err);
-                }
-            }
-        }
-        _ => {
-            panic!("\nProblem with list tables value\nUnknown value:{table_exists}")
+        Err(err) => {
+            println!("\nUnknown error in user table: {:?}", err);
+            return 0;
         }
     }
 }
@@ -198,7 +159,7 @@ fn edit_product(product: Product) {
     let mut db = db_start();
 
     let update_query =
-        format!("UPDATE products SET name = ?, description = ?, price = ? WHERE product_id = ?",);
+        format!("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE product_id = ?",);
     let transaction = db
         .transaction()
         .expect("Failed to establish sql transaction in checkout");
@@ -213,9 +174,12 @@ fn edit_product(product: Product) {
                 product.name,
                 product.description,
                 product.price as i32,
+                product.quantity as i32,
                 product.product_id as i32
             ])
             .expect("Failed to execute transaction");
+
+        println!("\nEdit product successfull");
     }
 
     transaction
@@ -245,9 +209,8 @@ fn insert_new_product(product: Product) {
     }
 }
 
-fn insert_product(product: &Product) -> String {
+fn insert_product(db: &Connection, product: &Product) -> String {
     println!("\nInsert new product");
-    let db = db_start();
 
     let query =
         "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
@@ -267,7 +230,7 @@ fn insert_product(product: &Product) -> String {
 }
 
 #[command]
-fn checkout(product_id: i32, quantity: i32) -> Vec<Product> {
+fn checkout(product_id: i32, quantity: i32) -> () {
     println!("\nThe user asked to checkout, proceeding");
     assert!(quantity > 0, "Quantity needs to be a positive number");
 
@@ -308,7 +271,6 @@ fn checkout(product_id: i32, quantity: i32) -> Vec<Product> {
     }
 
     transaction.commit().expect("Failed to commit transaction");
-    list_products(&db)
 }
 
 #[command]
@@ -333,16 +295,39 @@ fn main_initialize() -> Vec<Product> {
          ",
             (),
         )
-        .expect("Failed to create table");
+        .expect("\nFailed to create table products");
 
         let products: Vec<Product> = products_from_text_file("products.txt".to_string());
         let iterator = products.iter();
 
         for product in iterator {
             println!("\nProduct: {:?}", product);
-            insert_product(product);
+            insert_product(&db, product);
         }
         println!("\n--Created table\n--Populated table with products.txt file\n");
+
+        println!("\nInitializing table user_preferences");
+        db.execute(
+            "
+         CREATE TABLE IF NOT EXISTS user_preferences(
+         id INTEGER PRIMARY KEY AUTOINCREMENT,
+         key TEXT UNIQUE NOT NULL,   
+         value INTEGER DEFAULT 0
+             )
+         ",
+            (),
+        )
+        .expect("\nFailed to create user table");
+        let mut stmt = db
+            .prepare("INSERT INTO user_preferences(key, value) VALUES ('welcome_screen_shown', ?);")
+            .expect("\nFailed to prepare statement for welcome_screen_shown_value update");
+        let rows_affected = stmt
+            .execute(params![1])
+            .expect("\nRows affected statement failed to execute for database");
+        if rows_affected == 0 {
+            println!("\nNo rows were updated. The 'key' might not exist.");
+        }
+        println!("\nCreated user table");
     } else if number_of_tables == 1 {
         println!("\nTable exists moving on:{number_of_tables}");
     }

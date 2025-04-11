@@ -7,44 +7,17 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
       <button
         onClick={() => setSelected(product)}
         key={product.product_id}
-        className="
-    group
-    relative
-    flex flex-col items-center
-    max-w-sm
-    w-full /* Ensure button takes up width if needed */
-    p-4 /* Slightly reduced padding */
-    rounded-2xl /* Keep soft, chunky corners */
-    bg-gradient-to-br from-zinc-800 to-zinc-900 /* Subtler dark gradient */
-    border-4 border-stone-600 /* Muted, thick border */
-    shadow-lg shadow-black/40 /* Subtle shadow for depth */
-    overflow-hidden
-    transition-all duration-300 ease-in-out
-    hover:border-stone-500 /* Slightly lighter border on hover */
-    hover:shadow-xl /* Increase shadow slightly on hover */
-    hover:-translate-y-1.5 /* Keep the lift effect */
-  "
-      >
+        className="group relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
         {/* Image Area */}
         <div className="w-full flex justify-center mb-4 relative">
-          {/* Very subtle background glow effect */}
+          {/* Background glow effect */}
           <div
-            className="
-        absolute inset-0
-        rounded-lg
-        bg-stone-400 /* Muted glow color */
-        opacity-0
-        group-hover:opacity-15 /* Reduced glow opacity */
-        transition-opacity duration-300
-        blur-2xl /* Increased blur for softness */
-        pointer-events-none
-      "
-          ></div>
-
+            className="absolute inset-0 rounded-lg bg-stone-400 opacity-0 group-hover:opacity-15 transition-opacity duration-300 blur-2xl pointer-events-none"></div>
           {/* Image */}
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
             className="
         w-32 h-32
         object-cover
@@ -148,6 +121,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
           <img
             src={product.image}
             alt={product.name}
+            loading="lazy"
             className="
         w-32 h-32
         object-cover

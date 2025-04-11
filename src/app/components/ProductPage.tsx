@@ -3,20 +3,22 @@ import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 import { CategoryState, formData, ProductPageProps, cart_product } from "../types";
 import { FormEvent } from "react";
+import { Product } from "../types";
 
 export default function ProductPage({ product, cart, setCart, setIsCartOpen, isCartOpen, setCheckout, setSelected, setRefresh }: ProductPageProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [category, setCategory] = useState<CategoryState>({
     name: false,
     description: false,
-    price: false
+    price: false,
+    quantity: false
   });
   const [input_value, setInputValue] = useState<formData>({
     product_id: product.product_id,
     name: product.name,
     description: product.description,
     price: Number(product.price),
-    quantity: product.quantity,
+    quantity: Number(product.quantity),
   });
   const [edit_submit, setEditSubmit] = useState<boolean>(false);
   const [remove_product, setRemoveProduct] = useState<boolean>(false);
@@ -27,18 +29,20 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     console.log("\n\tEdit Product useEffect");
     if (edit_submit === true) {
       edit_product();
+      setRefresh(true);
     } else {
       setCategory({
         name: false,
         description: false,
-        price: false
+        price: false,
+        quantity: false
       });
       setInputValue({
         product_id: product.product_id,
         name: product.name,
         description: product.description,
         price: Number(product.price),
-        quantity: product.quantity,
+        quantity: Number(product.quantity),
       });
     }
   }, [edit_submit, product])
@@ -63,21 +67,18 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     try {
       if (edit_submit === true) {
         console.log("\nEditing product\n");
-        const response = await invoke('edit_product', { product: input_value });
-        console.log("Response from edit_product:", response);
+        await invoke('edit_product', { product: input_value });
         clean();
       } else if (typeof (!input_value.price) === "number") {
         console.error("\nPrice is not a number, Edit submit:{edit_submit}, type_of_price:{typeof(input_value.price)}");
-      } else {
-        console.log("\nEdit submit is false, {edit_submit}")
       };
       setEditSubmit(false);
     } catch (error) {
-      console.error(error);
+      console.error("\nError in edit_product:", error);
     }
   }
 
-  function addToCart(product: cart_product) {
+  function addToCart(product: Product) {
     try {
       setCart((prev) => {
         const product_exists = prev.find(item => item.product_id === product.product_id);
@@ -108,22 +109,23 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   };
 
   function clean() {
+    setRefresh(true);
     setCategory({
       name: false,
       description: false,
-      price: false
+      price: false,
+      quantity: false
     });
     setInputValue({
       product_id: product.product_id,
       name: product.name,
       description: product.description,
       price: Number(product.price),
-      quantity: product.quantity,
+      quantity: Number(product.quantity),
     });
     setSelected(null);
     setEditSubmit(false);
     setEdit(false);
-    setRefresh(true);
   }
 
   function handle_submit(event: FormEvent<HTMLFormElement>) {
@@ -151,12 +153,14 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               </svg>
             </button>
             {product?.image ? (
-              <img
-                src={product.image}
-                alt={product.name}
-                loading="lazy"
-                className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
-              />
+              <div className="flex relative w-full h-96 items-center">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  loading="lazy"
+                  className="flex relative object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
+                />
+              </div>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-2xl">
                 <span className="text-gray-300 text-lg font-semibold">No Image Available</span>
@@ -171,7 +175,8 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 setEdit(!edit), setCategory({
                   name: false,
                   description: false,
-                  price: false
+                  price: false,
+                  quantity: false
                 }
                 )
               }
@@ -189,10 +194,18 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
             <p className="text-md text-gray-300 leading-relaxed tracking-wide">
               {product?.description}
             </p>
-            {/*Price*/}
-            <p className="text-xl font-semibold text-blue-300">
-              ${product?.price.toFixed(2)}
-            </p>
+            <div className="flex flex-row items-center justify-between">
+              {/*Price*/}
+              <p className="flex gap-4 items-center text-xl font-semibold text-green-300">
+                ${product?.price}<span className="text-sm text-green-100">Price</span>
+              </p>
+
+              {/*Quantity*/}
+              <p className="flex gap-4  items-center text-xl font-semibold text-blue-300">
+                <span className="text-sm text-blue-100">Quantity</span>{product?.quantity}
+              </p>
+            </div>
+
             <div className="w-full flex flex-row gap-5">
               <div className="w-full flex flex-row gap-5">
                 <button
@@ -247,7 +260,8 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 setEdit(!edit), setCategory({
                   name: false,
                   description: false,
-                  price: false
+                  price: false,
+                  quantity: false
                 }
                 )
               }
@@ -294,30 +308,52 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               />
             </div>
 
-            <input
-              type="number"
-              maxLength={1000}
-              placeholder={`${product.price}`}
-              value={input_value.price}
-              name="price"
-              onChange={
-                (e) => {
-                  setInputValue((prev) => ({
-                    ...prev,
-                    price: Number(e.target.value),
-                  }))
-                  change_state('price')
+            <div className="w-full relative flex flex-row items-center justify-between">
+              <input
+                aria-label="price"
+                type="number"
+                maxLength={1000}
+                placeholder={`${product.price}`}
+                value={input_value.price}
+                name="price"
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      price: Number(e.target.value),
+                    }))
+                    change_state('price')
+                  }
                 }
-              }
-              min="1"
-              className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
-            />
+                min="1"
+                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
+
+              <input
+                type="number"
+                maxLength={1000}
+                placeholder={`${product.quantity}`}
+                value={input_value.quantity}
+                name="quantity"
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      quantity: Number(e.target.value),
+                    }))
+                    change_state('quantity')
+                  }
+                }
+                min="0"
+                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
+            </div>
 
             {/*Submit cancel buttons */}
             <div className="w-full flex flex-row gap-5">
               <button
                 onClick={() => {
-                  if (!category.name && !category.description && !category.price) {
+                  if (!category.name && !category.description && !category.price && !category.quantity) {
                     return;
                   }
                   setEditSubmit(true);
@@ -327,7 +363,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   hover:bg-green-700 hover:shadow-lg 
   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 
   active:bg-green-800 
-  ${(!category.name && !category.description && !category.price)
+  ${(!category.name && !category.description && !category.price && !category.quantity)
                     ? "cursor-not-allowed pointer-events-none bg-gray-700"
                     : "cursor-pointer bg-green-600"
                   }`}

@@ -10,30 +10,28 @@ import ProductHeader from './ProductHeader';
 import AddNewProductCard from './AddNewProductCard';
 
 export default function Products() {
-  const [result, setResult] = useState<Product[] | null>(null);
   const [selected, setSelected] = useState<Product | null>(null);
   const [cart, setCart] = useState<cart_product[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
   const [checkout, setCheckout] = useState<boolean>(false);
   const [submit, setSubmit] = useState<boolean>(false);
   const [add_new_product, setAddNewProduct] = useState<boolean>(false);
+  const [products, setProducts] = useState<Product[] | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
-    invoke<Product[]>('main_initialize')
-      .then(result => setResult(result))
-      .catch(console.error)
     console.log("\nRefresh");
-    return () =>
-      setRefresh(false);
-  }, [refresh])
+    invoke<Product[]>('main_initialize')
+      .then(products => setProducts(products))
+      .catch(console.error)
+    setRefresh(false);
+  }, [refresh]);
 
   useEffect(() => {
     if (submit === true) {
       update_quantity()
     }
   }, [submit])
-
 
   async function update_quantity(): Promise<void> {
     try {
@@ -42,9 +40,9 @@ export default function Products() {
         const quantity = cart[0].selected_quantity;
 
         await invoke<any>('checkout', { productId: id, quantity: quantity })
-          .then(result => setResult(result))
           .catch(console.error)
 
+        setRefresh(true);
         setSubmit(false);
         setCart([]);
         setIsCartOpen(false);
@@ -57,24 +55,24 @@ export default function Products() {
 
 
   function sort_products(sorting: number): void {
-    if (result !== null) {
+    if (products !== null) {
       switch (sorting) {
         case 0: {
           console.log("\nSorting by name");
-          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.name.localeCompare(b.name));
-          setResult(products_array);
+          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.name.localeCompare(b.name));
+          setProducts(products_array);
           break;
         }
         case 1: {
           console.log("\nSorting by price");
-          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.price - b.price);
-          setResult(products_array);
+          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.price - b.price);
+          setProducts(products_array);
           break;
         }
         case 2: {
           console.log("\nSorting by quantity");
-          const products_array: Product[] | null = Object.values(result).sort((a, b) => a.quantity - b.quantity);
-          setResult(products_array);
+          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.quantity - b.quantity);
+          setProducts(products_array);
         }
       };
     } else {
@@ -92,7 +90,7 @@ export default function Products() {
       sm:py-12 lg:py-16 
       max-w-7xl mx-auto">
       <div className="flex flex-col w-full min-h-screen">
-        <ProductHeader productCount={result && result.length} />
+        <ProductHeader productCount={products && products.length} />
         <div className="flex flex-col w-full flex-grow z-0">
           <div className="flex flex-row justify-between rounded-lg border-2 border-stone-700 bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden rounded-lg mb-5 overflow-hidden shadow-md dark:shadow-none dark:bg-gray-800">
             <button
@@ -132,9 +130,9 @@ export default function Products() {
 
           <div className="w-full grid grid-cols-3 gap-5">
             {/*Add New Product Card */}
-            {add_new_product && <AddNewProductCard products_length={Number(result?.length)} setAddNewProduct={setAddNewProduct} setRefresh={setRefresh} />
+            {add_new_product && <AddNewProductCard products_length={Number(products?.length)} setAddNewProduct={setAddNewProduct} setRefresh={setRefresh} />
             }
-            {result?.map((product, key) => (
+            {products?.map((product, key) => (
               <ProductCard product={product} setSelected={setSelected} dark_mode={true} key={key} />
             ))}
           </div>

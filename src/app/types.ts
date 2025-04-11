@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface Product {
-  product_id?: number,
+  product_id: number,
   name: string,
   description: string,
   price: number,
@@ -34,6 +34,7 @@ export interface CategoryState {
   name: boolean,
   description: boolean,
   price: boolean,
+  quantity: boolean,
 }
 
 export interface formData {
