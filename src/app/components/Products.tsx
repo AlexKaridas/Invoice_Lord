@@ -8,6 +8,7 @@ import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
 import AddNewProductCard from './AddNewProductCard';
+import PageButtons from './PageButtons';
 
 export default function Products() {
   const [selected, setSelected] = useState<Product | null>(null);
@@ -19,6 +20,7 @@ export default function Products() {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
+  const [total_products, setTotalProducts] = useState<number | null>(null);
 
   useEffect(() => {
     console.log("\nRefresh");
@@ -26,10 +28,16 @@ export default function Products() {
       .then(products => setProducts(products))
       .catch(console.error)
     setRefresh(false);
-  }, [refresh]);
+  }, [refresh, page]);
 
   useEffect(() => {
+    console.log("\nFetching total products");
+    invoke<number>('total_products')
+      .then(response => setTotalProducts(response))
+      .catch(console.error)
+
     if (submit === true) {
+      console.log("\nUpdating quantity");
       update_quantity()
     }
   }, [submit])
@@ -169,6 +177,7 @@ export default function Products() {
           {checkout ? <Checkout setSubmit={setSubmit} setCheckout={setCheckout} /> : null}
         </div>
       </div>
+      <PageButtons total_products={total_products} page={page} setPage={setPage} />
     </div>
   )
 }

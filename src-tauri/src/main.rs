@@ -7,7 +7,7 @@ use std::{
     io::{BufRead, BufReader, ErrorKind},
     sync::Mutex,
 };
-use tauri::{command, generate_handler, Manager};
+use tauri::{command, generate_handler, Manager, State};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Product {
@@ -38,7 +38,8 @@ fn main() {
             welcome_screen,
             insert_new_product,
             remove_product,
-            pagination
+            pagination,
+            total_products
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
@@ -61,9 +62,10 @@ fn db_start() -> Connection {
 }
 
 #[command]
-fn welcome_screen() -> i32 {
-    let db = db_start();
+fn welcome_screen(state: State<'_, AppState>) -> i32 {
     println!("\nChecking if value 1 exists in user table");
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
 
     match db.query_row(
         "SELECT value FROM user_preferences WHERE key = ?;",
@@ -136,10 +138,23 @@ fn number_of_tables(table_name: String, database: &Connection) -> usize {
 }
 
 #[command]
-fn remove_product(product_id: i32) {
-    println!("\nRemoving product\n");
+fn total_products(state: State<'_, AppState>) -> i64 {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+    let table_name = "products";
 
-    let mut db = db_start();
+    let query = format!("SELECT COUNT(*) FROM {}", table_name);
+    let count = db
+        .query_row(&query, [], |row| row.get(0))
+        .expect("\nFailed to read total number of rows for product table");
+    count
+}
+
+#[command]
+fn remove_product(state: State<'_, AppState>, product_id: i32) {
+    println!("\nRemoving product\n");
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
     let update_query = format!("DELETE FROM products WHERE product_id = ?",);
     let transaction = db
@@ -164,10 +179,10 @@ fn remove_product(product_id: i32) {
 }
 
 #[command]
-fn edit_product(product: Product) {
+fn edit_product(state: State<'_, AppState>, product: Product) {
     println!("\nEditing product");
-
-    let mut db = db_start();
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
     let update_query =
         format!("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE product_id = ?",);
@@ -199,9 +214,10 @@ fn edit_product(product: Product) {
 }
 
 #[command]
-fn insert_new_product(product: Product) {
+fn insert_new_product(state: State<'_, AppState>, product: Product) {
     println!("\nInsert new product");
-    let db = db_start();
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
 
     let query =
         "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
@@ -241,11 +257,12 @@ fn insert_product(db: &Connection, product: &Product) -> String {
 }
 
 #[command]
-fn checkout(product_id: i32, quantity: i32) -> () {
+fn checkout(state: State<'_, AppState>, product_id: i32, quantity: i32) -> () {
     println!("\nThe user asked to checkout, proceeding");
-    assert!(quantity > 0, "Quantity needs to be a positive number");
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
-    let mut db = db_start();
+    assert!(quantity > 0, "Quantity needs to be a positive number");
 
     let transaction = db
         .transaction()
@@ -285,7 +302,7 @@ fn checkout(product_id: i32, quantity: i32) -> () {
 }
 
 #[command]
-fn main_initialize(state: tauri::State<'_, AppState>) -> () {
+fn main_initialize(state: State<'_, AppState>) -> () {
     let db_guard = state.db.lock().unwrap();
     let db = &*db_guard;
 
