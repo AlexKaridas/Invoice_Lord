@@ -7,17 +7,16 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
       <button
         onClick={() => setSelected(product)}
         key={product.product_id}
-        className="group relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
+        className="h-80 relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
         {/* Image Area */}
         <div className="w-full flex justify-center mb-4 relative">
           {/* Background glow effect */}
           <div
-            className="absolute inset-0 rounded-lg bg-stone-400 opacity-0 group-hover:opacity-15 transition-opacity duration-300 blur-2xl pointer-events-none"></div>
+            className="absolute inset-0 rounded-lg bg-stone-400 opacity-0 transition-opacity duration-300 blur-2xl pointer-events-none"></div>
           {/* Image */}
           <img
             src={product.image}
             alt={product.name}
-            loading="lazy"
             className="
         w-32 h-32
         object-cover
@@ -26,7 +25,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         relative
         z-10
         transition-transform duration-300 ease-in-out
-        group-hover:scale-105
       "
           />
         </div>
@@ -40,7 +38,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         font-semibold
         text-stone-100 
         mb-1
-        group-hover:text-stone-300 
         transition-colors duration-300
         break-words 
         tracking-wider
@@ -88,7 +85,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         onClick={() => setSelected(product)}
         key={product.product_id}
         className="
-    group
     relative
     flex flex-col items-center
     max-w-sm
@@ -111,7 +107,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         rounded-lg
         bg-yellow-300
         opacity-0
-        group-hover:opacity-30
         transition-opacity duration-300
         blur-lg
         pointer-events-none
@@ -121,7 +116,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
           <img
             src={product.image}
             alt={product.name}
-            loading="lazy"
             className="
         w-32 h-32
         object-cover
@@ -131,7 +125,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         relative
         z-10
         transition-transform duration-300 ease-in-out
-        group-hover:scale-105
       "
           />
         </div>
@@ -143,7 +136,6 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         font-semibold
         text-stone-800
         mb-1
-        group-hover:text-orange-700
         transition-colors duration-300
         truncate
       "

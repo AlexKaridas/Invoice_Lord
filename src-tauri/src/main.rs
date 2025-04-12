@@ -5,8 +5,9 @@ use serde::{Deserialize, Serialize};
 use std::{
     fs::File,
     io::{BufRead, BufReader, ErrorKind},
+    sync::Mutex,
 };
-use tauri::{command, generate_handler};
+use tauri::{command, generate_handler, Manager, State};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Product {
@@ -18,15 +19,27 @@ struct Product {
     image: Option<String>,
 }
 
+struct AppState {
+    db: Mutex<Connection>,
+}
+
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            app.manage(AppState {
+                db: db_start().into(),
+            });
+            Ok(())
+        })
         .invoke_handler(generate_handler![
             main_initialize,
             checkout,
             edit_product,
             welcome_screen,
             insert_new_product,
-            remove_product
+            remove_product,
+            pagination,
+            total_products
         ])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application");
@@ -35,22 +48,24 @@ fn main() {
 //TODO:
 // Pagination
 // Send 9 products at a time to improve loading speeds
+// Share db connection between commands
 // Final: Able to drag and drop a file inside and
 // Add or replace products and their attributes from the file
 
 fn db_start() -> Connection {
-    println!("\nDatabase connection opening\n");
+    println!("\nDatabase connection opening");
     let db = Connection::open("products_database.sqlite").unwrap_or_else(|error| {
         panic!("\nProblem initializing database: {error:?}");
     });
-    println!("\nDatabase connection successfull\n");
+    println!("\nDatabase connection successfull");
     db
 }
 
 #[command]
-fn welcome_screen() -> i32 {
-    let db = db_start();
+fn welcome_screen(state: State<'_, AppState>) -> i32 {
     println!("\nChecking if value 1 exists in user table");
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
 
     match db.query_row(
         "SELECT value FROM user_preferences WHERE key = ?;",
@@ -123,10 +138,23 @@ fn number_of_tables(table_name: String, database: &Connection) -> usize {
 }
 
 #[command]
-fn remove_product(product_id: i32) {
-    println!("\nRemoving product\n");
+fn total_products(state: State<'_, AppState>) -> i64 {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+    let table_name = "products";
 
-    let mut db = db_start();
+    let query = format!("SELECT COUNT(*) FROM {}", table_name);
+    let count = db
+        .query_row(&query, [], |row| row.get(0))
+        .expect("\nFailed to read total number of rows for product table");
+    count
+}
+
+#[command]
+fn remove_product(state: State<'_, AppState>, product_id: i32) {
+    println!("\nRemoving product\n");
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
     let update_query = format!("DELETE FROM products WHERE product_id = ?",);
     let transaction = db
@@ -151,10 +179,10 @@ fn remove_product(product_id: i32) {
 }
 
 #[command]
-fn edit_product(product: Product) {
+fn edit_product(state: State<'_, AppState>, product: Product) {
     println!("\nEditing product");
-
-    let mut db = db_start();
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
     let update_query =
         format!("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE product_id = ?",);
@@ -186,9 +214,10 @@ fn edit_product(product: Product) {
 }
 
 #[command]
-fn insert_new_product(product: Product) {
+fn insert_new_product(state: State<'_, AppState>, product: Product) {
     println!("\nInsert new product");
-    let db = db_start();
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
 
     let query =
         "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
@@ -228,11 +257,12 @@ fn insert_product(db: &Connection, product: &Product) -> String {
 }
 
 #[command]
-fn checkout(product_id: i32, quantity: i32) -> () {
+fn checkout(state: State<'_, AppState>, product_id: i32, quantity: i32) -> () {
     println!("\nThe user asked to checkout, proceeding");
-    assert!(quantity > 0, "Quantity needs to be a positive number");
+    let mut db_guard = state.db.lock().unwrap();
+    let db = &mut *db_guard;
 
-    let mut db = db_start();
+    assert!(quantity > 0, "Quantity needs to be a positive number");
 
     let transaction = db
         .transaction()
@@ -272,14 +302,16 @@ fn checkout(product_id: i32, quantity: i32) -> () {
 }
 
 #[command]
-fn main_initialize() -> Vec<Product> {
-    let db = db_start();
+fn main_initialize(state: State<'_, AppState>) -> () {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+
     let number_of_tables: usize = number_of_tables("products".to_string(), &db);
 
     //println!("\nNumbertables:{number_of_tables}");
 
     if number_of_tables == 0 {
-        println!("\nTable product does not exist, initializing it now.");
+        println!("\nInitializing Products table");
 
         db.execute(
             "
@@ -302,9 +334,10 @@ fn main_initialize() -> Vec<Product> {
             println!("\nProduct: {:?}", product);
             insert_product(&db, product);
         }
-        println!("\n--Created table\n--Populated table with products.txt file\n");
 
-        println!("\nInitializing table user_preferences");
+        println!("\n--Created Products table\n--Populated table with products.txt file");
+
+        println!("\nInitializing user table");
         db.execute(
             "
          CREATE TABLE IF NOT EXISTS user_preferences(
@@ -326,33 +359,7 @@ fn main_initialize() -> Vec<Product> {
             println!("\nNo rows were updated. The 'key' might not exist.");
         }
         println!("\nCreated user table");
-    } else if number_of_tables == 1 {
-        println!("\nTable exists moving on:{number_of_tables}");
     }
-    println!("\nListing products");
-    list_products(&db)
-}
-
-fn list_products(db: &Connection) -> Vec<Product> {
-    let mut stmt = db
-        .prepare("SELECT product_id, name, description, price, quantity, image FROM products")
-        .expect("Failed to prepare statement");
-
-    let product_iter = stmt
-        .query_map([], |row| {
-            Ok(Product {
-                product_id: row.get(0)?,
-                name: row.get(1)?,
-                description: row.get(2)?,
-                price: row.get(3)?,
-                quantity: row.get(4)?,
-                image: row.get(5)?,
-            })
-        })
-        .expect("Failed to map products");
-    product_iter
-        .collect::<Result<Vec<Product>, _>>()
-        .expect("Failed to collect products")
 }
 
 fn products_from_text_file(mut file_path: String) -> Vec<Product> {
@@ -473,4 +480,46 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
     }
     println!("\nVector: {:?}\n", products_vector);
     products_vector
+}
+
+#[command]
+fn pagination(sorting: i32, state: tauri::State<'_, AppState>, page: i32) -> Vec<Product> {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+
+    let pages_final_product_id: i32 = page - 1;
+
+    let number_of_rows = 9;
+    let number_to_skip = pages_final_product_id * 9;
+
+    let query = match sorting {
+        0 => "SELECT * FROM products ORDER BY name ASC LIMIT ? OFFSET ?",
+        1 => "SELECT * FROM products ORDER BY price ASC LIMIT ? OFFSET ?",
+        2 => "SELECT * FROM products ORDER BY quantity ASC LIMIT ? OFFSET ?",
+        3 => "SELECT * FROM products ORDER BY name DESC LIMIT ? OFFSET ?",
+        4 => "SELECT * FROM products ORDER BY price DESC LIMIT ? OFFSET ?",
+        5 => "SELECT * FROM products ORDER BY quantity DESC LIMIT ? OFFSET ?",
+        _ => panic!("\nNot a valid option for sorting:{sorting}"),
+    };
+
+    let mut stmt = db
+        .prepare(query)
+        .expect("\nFailed to prepare statement for pagination");
+
+    let product_iter = stmt
+        .query_map([number_of_rows, number_to_skip], |row| {
+            Ok(Product {
+                product_id: row.get(0)?,
+                name: row.get(1)?,
+                description: row.get(2)?,
+                price: row.get(3)?,
+                quantity: row.get(4)?,
+                image: row.get(5)?,
+            })
+        })
+        .expect("Failed to map products");
+
+    product_iter
+        .collect::<Result<Vec<Product>, _>>()
+        .expect("Failed to collect products")
 }

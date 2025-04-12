@@ -1,5 +1,15 @@
 "use client"
+import { useEffect } from "react";
+import { invoke } from "@tauri-apps/api/core";
+
 export default function WelcomeScreen({ setWelcomeShown }: { setWelcomeShown: React.Dispatch<React.SetStateAction<null | number>> }) {
+
+  useEffect(() => {
+    invoke('main_initialize')
+      .catch(console.error)
+    console.log("\nMain main_initialize");
+  }, [])
+
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
       <div className="absolute inset-0 z-0">

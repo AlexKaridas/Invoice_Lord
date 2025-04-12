@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { Product } from '../types';
 import ProductPage from './ProductPage';
 import { cart_product } from "../types";
@@ -8,7 +8,7 @@ import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
 import AddNewProductCard from './AddNewProductCard';
-import { p } from 'framer-motion/client';
+import PageButtons from './PageButtons';
 
 export default function Products() {
   const [selected, setSelected] = useState<Product | null>(null);
@@ -19,17 +19,26 @@ export default function Products() {
   const [add_new_product, setAddNewProduct] = useState<boolean>(false);
   const [products, setProducts] = useState<Product[] | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
+  const [total_products, setTotalProducts] = useState<number | null>(null);
+  const [sorting, setSorting] = useState<number>(0);
 
   useEffect(() => {
     console.log("\nRefresh");
-    invoke<Product[]>('main_initialize')
+    invoke<Product[]>('pagination', { sorting: sorting, page: page })
       .then(products => setProducts(products))
       .catch(console.error)
     setRefresh(false);
-  }, [refresh]);
+  }, [refresh, page, sorting]);
 
   useEffect(() => {
+    console.log("\nFetching total products");
+    invoke<number>('total_products')
+      .then(response => setTotalProducts(response))
+      .catch(console.error)
+
     if (submit === true) {
+      console.log("\nUpdating quantity");
       update_quantity()
     }
   }, [submit])
@@ -55,48 +64,11 @@ export default function Products() {
   };
 
   //TODO
-  //When the user clicks twice the sorting must change order
-  //Send 9 products at a time to improve loading speeds
+  // When the user clicks twice the sorting must change order
+  // Send 9 products at a time to improve loading speeds
+  // Pagination
+  // Handle the sorting from Rust sqlite
 
-  function sort_products(sorting: number): void {
-    let times_hit: number = 0;
-    if (products !== null) {
-      switch (sorting) {
-        case 0: {
-          console.log("\nSorting by name");
-          times_hit += 1;
-          if (times_hit === 1) {
-            console.log("\nAscending");
-            const products_array: Product[] | null = Object.values(products).sort((a, b) => a.name.localeCompare(b.name));
-            setProducts(products_array);
-            break;
-          }
-          else if (times_hit === 2) {
-            console.log("\nDescending");
-            break;
-          } else if (times_hit > 2) {
-            times_hit = 0;
-            break;
-          } else {
-            console.log("\nSomething else happened:", times_hit);
-          }
-        }
-        case 1: {
-          console.log("\nSorting by price");
-          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.price - b.price);
-          setProducts(products_array);
-          break;
-        }
-        case 2: {
-          console.log("\nSorting by quantity");
-          const products_array: Product[] | null = Object.values(products).sort((a, b) => a.quantity - b.quantity);
-          setProducts(products_array);
-        }
-      };
-    } else {
-      console.error("\nProducts_array is null, cannot sort");
-    }
-  }
 
   // JavaScript doesn't have a dedicated type for arrays; 
   // Instead, it uses objects with numeric keys and a length property to simulate array behavior. 
@@ -113,19 +85,37 @@ export default function Products() {
         <div className="flex flex-col w-full flex-grow z-0">
           <div className="flex flex-row justify-between rounded-lg border-2 border-stone-700 bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden rounded-lg mb-5 overflow-hidden shadow-md dark:shadow-none dark:bg-gray-800">
             <button
-              onClick={() => sort_products(0)}
+              onClick={() => setSorting((prev) => {
+                if (prev === 3) {
+                  return 0;
+                } else {
+                  return 3;
+                }
+              })}
               className="flex w-full text-center ease-in-out duration-200 items-center justify-center z-10 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 "
             >
               <h1 className="text-lg font-semibold text-stone-200">Name</h1>
             </button>
             <button
-              onClick={() => sort_products(1)}
+              onClick={() => setSorting((prev) => {
+                if (prev === 1) {
+                  return 4;
+                } else {
+                  return 1;
+                }
+              })}
               className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 border-l border-stone-700 border-r"
             >
               <h1 className="text-lg font-semibold text-stone-200">Price</h1>
             </button>
             <button
-              onClick={() => sort_products(2)}
+              onClick={() => setSorting((prev) => {
+                if (prev === 2) {
+                  return 5;
+                } else {
+                  return 2;
+                }
+              })}
               className="flex w-full text-center ease-in-out duration-200 items-center justify-center py-3 hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <h1 className="text-lg font-semibold text-stone-200">Quantity</h1>
@@ -167,6 +157,7 @@ export default function Products() {
           {checkout ? <Checkout setSubmit={setSubmit} setCheckout={setCheckout} /> : null}
         </div>
       </div>
+      <PageButtons total_products={total_products} page={page} setPage={setPage} />
     </div>
   )
 }
