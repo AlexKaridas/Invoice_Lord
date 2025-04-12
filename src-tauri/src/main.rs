@@ -5,8 +5,9 @@ use serde::{Deserialize, Serialize};
 use std::{
     fs::File,
     io::{BufRead, BufReader, ErrorKind},
+    sync::Mutex,
 };
-use tauri::{command, generate_handler};
+use tauri::{command, generate_handler, Manager};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Product {
@@ -19,11 +20,17 @@ struct Product {
 }
 
 struct AppState {
-    db: Connection,
+    db: Mutex<Connection>,
 }
 
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            app.manage(AppState {
+                db: db_start().into(),
+            });
+            Ok(())
+        })
         .invoke_handler(generate_handler![
             main_initialize,
             checkout,
@@ -278,8 +285,10 @@ fn checkout(product_id: i32, quantity: i32) -> () {
 }
 
 #[command]
-fn main_initialize() -> () {
-    let db = db_start();
+fn main_initialize(state: tauri::State<'_, AppState>) -> () {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+
     let number_of_tables: usize = number_of_tables("products".to_string(), &db);
 
     //println!("\nNumbertables:{number_of_tables}");
@@ -457,8 +466,10 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
 }
 
 #[command]
-fn pagination(page: i32) -> Vec<Product> {
-    let db: Connection = db_start();
+fn pagination(state: tauri::State<'_, AppState>, page: i32) -> Vec<Product> {
+    let db_guard = state.db.lock().unwrap();
+    let db = &*db_guard;
+
     let pages_final_product_id: i32 = page - 1;
 
     let number_of_rows = 9;

@@ -157,7 +157,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                   src={product.image}
                   alt={product.name}
                   loading="lazy"
-                  className="flex relative object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
+                  className="flex relative object-cover rounded-2xl transition-transform duration-300"
                 />
               </div>
             ) : (
