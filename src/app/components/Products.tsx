@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from '@tauri-apps/api/core'
 import { Product } from '../types';
 import ProductPage from './ProductPage';
 import { cart_product } from "../types";
@@ -8,7 +8,6 @@ import Checkout from '../components/Chekout';
 import ProductCard from './ProductCard';
 import ProductHeader from './ProductHeader';
 import AddNewProductCard from './AddNewProductCard';
-import { p } from 'framer-motion/client';
 
 export default function Products() {
   const [selected, setSelected] = useState<Product | null>(null);
@@ -19,10 +18,11 @@ export default function Products() {
   const [add_new_product, setAddNewProduct] = useState<boolean>(false);
   const [products, setProducts] = useState<Product[] | null>(null);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
     console.log("\nRefresh");
-    invoke<Product[]>('main_initialize')
+    invoke<Product[]>('pagination', { page: page })
       .then(products => setProducts(products))
       .catch(console.error)
     setRefresh(false);
@@ -55,8 +55,10 @@ export default function Products() {
   };
 
   //TODO
-  //When the user clicks twice the sorting must change order
-  //Send 9 products at a time to improve loading speeds
+  // When the user clicks twice the sorting must change order
+  // Send 9 products at a time to improve loading speeds
+  // Pagination
+  // Handle the sorting from Rust sqlite
 
   function sort_products(sorting: number): void {
     let times_hit: number = 0;

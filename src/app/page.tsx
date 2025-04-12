@@ -2,7 +2,7 @@
 import Products from "./components/Products";
 import WelcomeScreen from "./components/WelcomeScreen";
 import { useState, useEffect } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 export default function Home() {
   const [welcomeShown, setWelcomeShown] = useState<null | number>(null);

@@ -1,6 +1,6 @@
 import Cart from "./Cart";
 import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { CategoryState, formData, ProductPageProps, cart_product } from "../types";
 import { FormEvent } from "react";
 import { Product } from "../types";
