@@ -483,7 +483,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
 }
 
 #[command]
-fn pagination(state: tauri::State<'_, AppState>, page: i32) -> Vec<Product> {
+fn pagination(sorting: i32, state: tauri::State<'_, AppState>, page: i32) -> Vec<Product> {
     let db_guard = state.db.lock().unwrap();
     let db = &*db_guard;
 
@@ -492,8 +492,18 @@ fn pagination(state: tauri::State<'_, AppState>, page: i32) -> Vec<Product> {
     let number_of_rows = 9;
     let number_to_skip = pages_final_product_id * 9;
 
+    let query = match sorting {
+        0 => "SELECT * FROM products ORDER BY name ASC LIMIT ? OFFSET ?",
+        1 => "SELECT * FROM products ORDER BY price ASC LIMIT ? OFFSET ?",
+        2 => "SELECT * FROM products ORDER BY quantity ASC LIMIT ? OFFSET ?",
+        3 => "SELECT * FROM products ORDER BY name DESC LIMIT ? OFFSET ?",
+        4 => "SELECT * FROM products ORDER BY price DESC LIMIT ? OFFSET ?",
+        5 => "SELECT * FROM products ORDER BY quantity DESC LIMIT ? OFFSET ?",
+        _ => panic!("\nNot a valid option for sorting:{sorting}"),
+    };
+
     let mut stmt = db
-        .prepare("SELECT * FROM products LIMIT ? OFFSET ?")
+        .prepare(query)
         .expect("\nFailed to prepare statement for pagination");
 
     let product_iter = stmt

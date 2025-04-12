@@ -5,6 +5,12 @@ export interface checkout_modal_props {
   setCheckout: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+export interface PageButtonsProps {
+  total_products: number | null;
+  page: number;
+  setPage: Dispatch<SetStateAction<number>>;
+}
+
 export interface Product {
   product_id: number,
   name: string,

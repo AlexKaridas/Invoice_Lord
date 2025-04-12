@@ -7,7 +7,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
       <button
         onClick={() => setSelected(product)}
         key={product.product_id}
-        className="relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
+        className="h-80 relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
         {/* Image Area */}
         <div className="w-full flex justify-center mb-4 relative">
           {/* Background glow effect */}
