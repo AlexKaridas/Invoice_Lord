@@ -65,10 +65,6 @@ export default function Products() {
 
   //TODO
   // When the user clicks twice the sorting must change order
-  // Send 9 products at a time to improve loading speeds
-  // Pagination
-  // Handle the sorting from Rust sqlite
-
 
   // JavaScript doesn't have a dedicated type for arrays; 
   // Instead, it uses objects with numeric keys and a length property to simulate array behavior. 

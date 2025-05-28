@@ -14,7 +14,7 @@ struct Product {
     product_id: i32,
     name: String,
     description: String,
-    price: i32,
+    price: f32,
     quantity: i32,
     image: Option<String>,
 }
@@ -199,7 +199,7 @@ fn edit_product(state: State<'_, AppState>, product: Product) {
             .execute(params![
                 product.name,
                 product.description,
-                product.price as i32,
+                product.price as f32,
                 product.quantity as i32,
                 product.product_id as i32
             ])
@@ -319,7 +319,7 @@ fn main_initialize(state: State<'_, AppState>) -> () {
              product_id INTEGER PRIMARY KEY AUTOINCREMENT,
              name  TEXT NOT NULL,
              description TEXT NOT NULL,
-             price INTEGER,
+             price FLOAT,
              quantity INTEGER,
              image TEXT)
          ",
@@ -384,8 +384,8 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
     let mut products_vector: Vec<Product> = Vec::new();
     let reader = BufReader::new(file_handle);
 
-    let mut product: (String, String, i32, i32, String) =
-        (String::from(""), String::from(""), 0, 0, String::from(""));
+    let mut product: (String, String, f32, i32, String) =
+        (String::from(""), String::from(""), 0.0, 0, String::from(""));
 
     for line in reader.lines() {
         let new_line = line.expect("Unable to read line:{line}");
@@ -442,7 +442,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
                             .take(2)
                             .collect();
 
-                        product.2 = number.parse::<i32>().expect("Failed to parse price number");
+                        product.2 = number.parse::<f32>().expect("Failed to parse price number");
                     }
                     "Quantity" => {
                         let words: &Vec<&str> = &result[0].1;

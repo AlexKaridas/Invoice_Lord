@@ -30,17 +30,26 @@ export default function PageButtons({ total_products, page, setPage }: PageButto
 
   return (
     <div className="h-20 mt-10 flex flex-wrap gap-4 w-full items-center justify-center">
+
+      {/* First Page */}
       {renderPageButton(0)}
 
+      {/* Divider */}
       {page > 2 && <span className={ellipsisClass}>...</span>}
 
       {page > 0 && page - 1 > 0 && renderPageButton(page - 1)}
+
+      {/* Main Page */}
       {page !== 0 && page !== lastPage && renderPageButton(page)}
+
       {page < lastPage && page + 1 < lastPage && renderPageButton(page + 1)}
 
+      {/* Divider */}
       {page < lastPage - 2 && <span className={ellipsisClass}>...</span>}
 
+      {/* Last Page */}
       {renderPageButton(lastPage)}
+
     </div>
   );
 }
