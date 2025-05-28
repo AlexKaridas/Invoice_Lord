@@ -48,9 +48,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   }, [edit_submit, product])
 
   useEffect(() => {
-    console.log("\n\tRemove product useEffect");
     if (remove_product === true && product.product_id != null) {
-      console.log("\nRemoving product with product_id", product.product_id);
       invoke<String>('remove_product', { productId: product.product_id })
         .then(result => console.log("\nResult from remove_product:", result))
         .catch(console.error)
@@ -58,7 +56,6 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
       setSelected(null);
       setRefresh(true);
     } else {
-      console.log("\nremove_product is false, but useEffect fired anyway,", product.product_id);
       setRemoveProduct(false);
     }
   }, [remove_product])
@@ -325,7 +322,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                   }
                 }
                 min="1"
-                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+                className="w-[30%] px-2 py-1 rounded-sm text-xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
               />
 
               <input
@@ -344,7 +341,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                   }
                 }
                 min="0"
-                className="w-[30%] px-7 rounded-sm text-2xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+                className="w-[30%] px-2 py-1  rounded-sm text-xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
               />
             </div>
 
