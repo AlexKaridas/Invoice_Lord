@@ -11,10 +11,21 @@ use tauri::{command, generate_handler, Manager, State};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Product {
-    product_id: i32,
+    id: Option<i32>,
     name: String,
     description: String,
     price: f32,
+    tax: Option<f64>,
+    quantity: i32,
+    image: Option<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct NewProduct {
+    name: String,
+    description: String,
+    price: f32,
+    tax: Option<f64>,
     quantity: i32,
     image: Option<String>,
 }
@@ -46,9 +57,9 @@ fn main() {
 }
 
 //TODO:
-// Pagination
-// Send 9 products at a time to improve loading speeds
-// Share db connection between commands
+// Product tax for each product
+// Product Categories
+// Search Functionality
 // Final: Able to drag and drop a file inside and
 // Add or replace products and their attributes from the file
 
@@ -180,12 +191,12 @@ fn remove_product(state: State<'_, AppState>, product_id: i32) {
 
 #[command]
 fn edit_product(state: State<'_, AppState>, product: Product) {
-    println!("\nEditing product");
+    println!("\nEditing product {:?}\n", product);
     let mut db_guard = state.db.lock().unwrap();
     let db = &mut *db_guard;
 
     let update_query =
-        format!("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE product_id = ?",);
+        format!("UPDATE products SET name = ?, description = ?, price = ?, tax = ?, quantity = ? WHERE product_id = ?",);
     let transaction = db
         .transaction()
         .expect("Failed to establish sql transaction in checkout");
@@ -200,11 +211,13 @@ fn edit_product(state: State<'_, AppState>, product: Product) {
                 product.name,
                 product.description,
                 product.price as f32,
+                product.tax as Option<f64>,
                 product.quantity as i32,
-                product.product_id as i32
+                product.id
             ])
             .expect("Failed to execute transaction");
 
+        println!("\nProduct_editted: {:?} ", product);
         println!("\nEdit product successfull");
     }
 
@@ -220,13 +233,14 @@ fn insert_new_product(state: State<'_, AppState>, product: Product) {
     let db = &*db_guard;
 
     let query =
-        "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO products (name, description, price, tax, quantity, image) VALUES (?, ?, ?, ?, ?, ?)";
     match db.execute(
         query,
         params![
             &product.name,
             &product.description,
             product.price as i32,
+            product.tax as Option<f64>,
             product.quantity as i32,
             &product.image
         ],
@@ -236,17 +250,18 @@ fn insert_new_product(state: State<'_, AppState>, product: Product) {
     }
 }
 
-fn insert_product(db: &Connection, product: &Product) -> String {
-    println!("\nInsert new product");
+fn insert_product(db: &Connection, product: &NewProduct) -> String {
+    println!("\nInsert product");
 
     let query =
-        "INSERT INTO products (name, description, price, quantity, image) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO products (name, description, price, tax,  quantity, image) VALUES (?, ?, ?, ?, ?,?)";
     match db.execute(
         query,
         params![
             &product.name,
             &product.description,
             product.price as i32,
+            product.tax as Option<f64>,
             product.quantity as i32,
             &product.image
         ],
@@ -308,8 +323,6 @@ fn main_initialize(state: State<'_, AppState>) -> () {
 
     let number_of_tables: usize = number_of_tables("products".to_string(), &db);
 
-    //println!("\nNumbertables:{number_of_tables}");
-
     if number_of_tables == 0 {
         println!("\nInitializing Products table");
 
@@ -320,6 +333,7 @@ fn main_initialize(state: State<'_, AppState>) -> () {
              name  TEXT NOT NULL,
              description TEXT NOT NULL,
              price FLOAT,
+             tax FLOAT,
              quantity INTEGER,
              image TEXT)
          ",
@@ -327,7 +341,7 @@ fn main_initialize(state: State<'_, AppState>) -> () {
         )
         .expect("\nFailed to create table products");
 
-        let products: Vec<Product> = products_from_text_file("products.txt".to_string());
+        let products: Vec<NewProduct> = products_from_text_file("products.txt".to_string());
         let iterator = products.iter();
 
         for product in iterator {
@@ -362,7 +376,7 @@ fn main_initialize(state: State<'_, AppState>) -> () {
     }
 }
 
-fn products_from_text_file(mut file_path: String) -> Vec<Product> {
+fn products_from_text_file(mut file_path: String) -> Vec<NewProduct> {
     if let Some('\n') = file_path.chars().next_back() {
         file_path.pop();
     }
@@ -381,11 +395,17 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
         }
     });
 
-    let mut products_vector: Vec<Product> = Vec::new();
+    let mut products_vector: Vec<NewProduct> = Vec::new();
     let reader = BufReader::new(file_handle);
 
-    let mut product: (String, String, f32, i32, String) =
-        (String::from(""), String::from(""), 0.0, 0, String::from(""));
+    let mut product: (String, String, f32, f64, i32, String) = (
+        String::from(""),
+        String::from(""),
+        0.0,
+        0.0,
+        0,
+        String::from(""),
+    );
 
     for line in reader.lines() {
         let new_line = line.expect("Unable to read line:{line}");
@@ -394,7 +414,6 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
 
         let mut result = Vec::new();
         let mut current: Option<&str> = None;
-        let id_counter: i32 = 0;
 
         if words.len() > 0 {
             words.into_iter().for_each(|word| {
@@ -402,7 +421,7 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
                 let is_name = clean_word.ends_with("Name");
 
                 match clean_word {
-                    "Description" | "Price" | "Quantity" | "Image" => {
+                    "Description" | "Price" | "Tax" | "Quantity" | "Image" => {
                         current = Some(clean_word);
                         result.push((clean_word, vec![]));
                     }
@@ -444,6 +463,16 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
 
                         product.2 = number.parse::<f32>().expect("Failed to parse price number");
                     }
+                    "Tax" => {
+                        let words: &Vec<&str> = &result[0].1;
+                        let number: String = words[0]
+                            .chars()
+                            .filter(|c| c.is_digit(10))
+                            .take(3)
+                            .collect();
+
+                        product.3 = number.parse::<f64>().expect("Failed to parse tax number");
+                    }
                     "Quantity" => {
                         let words: &Vec<&str> = &result[0].1;
                         let number: String = words[0]
@@ -451,19 +480,35 @@ fn products_from_text_file(mut file_path: String) -> Vec<Product> {
                             .filter(|c| c.is_digit(10))
                             .take(2)
                             .collect();
-                        product.3 = number
+                        product.4 = number
                             .parse::<i32>()
                             .expect("Failed to parse quantity number");
                     }
                     "Image" => {
-                        product.4 = result[0].1[0].to_string();
-                        products_vector.push(Product {
-                            product_id: id_counter + 1,
+                        if let Some(tuple_element) = result.get(0) {
+                            let inner_vec = &tuple_element.1;
+
+                            product.5 = match inner_vec.get(0) {
+                                Some(s) => {
+                                    if s.trim().is_empty() {
+                                        "no_image".to_string()
+                                    } else {
+                                        s.to_string()
+                                    }
+                                }
+                                None => "no_image".to_string(),
+                            };
+                        } else {
+                            product.5 = "no_image".to_string();
+                        }
+
+                        products_vector.push(NewProduct {
                             name: product.0.to_string(),
                             description: product.1.to_string(),
                             price: product.2,
-                            quantity: product.3,
-                            image: Some(product.4),
+                            tax: Some(product.3),
+                            quantity: product.4,
+                            image: Some(product.5),
                         });
                     }
                     _ => println!("\nSomething is wrong"),
@@ -509,12 +554,13 @@ fn pagination(sorting: i32, state: tauri::State<'_, AppState>, page: i32) -> Vec
     let product_iter = stmt
         .query_map([number_of_rows, number_to_skip], |row| {
             Ok(Product {
-                product_id: row.get(0)?,
+                id: row.get(0)?,
                 name: row.get(1)?,
                 description: row.get(2)?,
                 price: row.get(3)?,
-                quantity: row.get(4)?,
-                image: row.get(5)?,
+                tax: row.get(4)?,
+                quantity: row.get(5)?,
+                image: row.get(6)?,
             })
         })
         .expect("Failed to map products");

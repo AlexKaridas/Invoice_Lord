@@ -12,18 +12,20 @@ export interface PageButtonsProps {
 }
 
 export interface Product {
-  product_id: number,
+  id: number,
   name: string,
   description: string,
   price: number,
+  tax: number,
   quantity: number,
   image?: string,
 }
 
 export interface cart_product {
-  product_id: number,
+  id: number,
   name: string,
   price: number,
+  tax: number,
   description: string,
   quantity: number,
   selected_quantity: number,
@@ -45,14 +47,16 @@ export interface CategoryState {
   name: boolean,
   description: boolean,
   price: boolean,
+  tax: boolean,
   quantity: boolean,
 }
 
 export interface formData {
-  product_id: number,
+  id: number,
   name: string,
   description: string,
   price: number,
+  tax: number,
   quantity: number,
 }
 
