@@ -60,6 +60,16 @@ export interface formData {
   quantity: number,
 }
 
+export interface NewProduct {
+  name: string | null,
+  description: string | null,
+  price: number | null,
+  tax: number | null,
+  quantity: number | null,
+  image?: string | null,
+
+}
+
 export interface AddNewProductCardProps {
   setAddNewProduct: React.Dispatch<React.SetStateAction<boolean>>
   products_length: number,

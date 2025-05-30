@@ -48,7 +48,7 @@ export default function Products() {
   async function update_quantity(): Promise<void> {
     try {
       if (submit == true && cart.length > 0) {
-        const id = cart[0].product_id;
+        const id = cart[0].id;
         const quantity = cart[0].selected_quantity;
 
         await invoke<any>('checkout', { productId: id, quantity: quantity })
