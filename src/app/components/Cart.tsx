@@ -12,14 +12,14 @@ export default function Cart({ cartItems, setCart, onClose, setCheckout }: CartP
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.selected_quantity, 0).toFixed(2);
 
   const removeItem = (id: number) => {
-    setCart(cartItems.filter((item) => item.product_id !== id));
+    setCart(cartItems.filter((item) => item.id !== id));
   };
 
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity < 1) return;
     setCart(
       cartItems.map((item) =>
-        item.product_id === id ? { ...item, selected_quantity: newQuantity } : item
+        item.id === id ? { ...item, selected_quantity: newQuantity } : item
       )
     );
   };
@@ -70,7 +70,7 @@ export default function Cart({ cartItems, setCart, onClose, setCheckout }: CartP
 
                   <div className="flex items-center space-x-1">
                     <button
-                      onClick={() => updateQuantity(item.product_id, item.selected_quantity - 1)}
+                      onClick={() => updateQuantity(item.id, item.selected_quantity - 1)}
                       className={`w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center text-gray-300 text-xs 'hover:bg-gray-500'`}
                     >
                       -
@@ -79,7 +79,7 @@ export default function Cart({ cartItems, setCart, onClose, setCheckout }: CartP
                       {item.selected_quantity}
                     </span>
                     <button
-                      onClick={() => updateQuantity(item.product_id, item.selected_quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.selected_quantity + 1)}
                       className={`w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center text-gray-300 text-xs ${item.selected_quantity < item.quantity ? 'hover:bg-gray-500' : 'pointer-events-none'}`}
                     >
                       +
@@ -87,7 +87,7 @@ export default function Cart({ cartItems, setCart, onClose, setCheckout }: CartP
                   </div>
 
                   <button
-                    onClick={() => removeItem(item.product_id)}
+                    onClick={() => removeItem(item.id)}
                     className="ml-2 px-1 rounded-md text-white font-bold hover:text-red-400 text-sm bg-red-600"
                   >
                     ✕

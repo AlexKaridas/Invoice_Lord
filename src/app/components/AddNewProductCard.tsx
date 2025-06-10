@@ -8,7 +8,7 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
     name: null,
     description: '',
     price: null,
-    tax: 0.24,
+    tax: 24,
     quantity: null,
     image: "no_image",
   });
