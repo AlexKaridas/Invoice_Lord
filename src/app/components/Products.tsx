@@ -29,6 +29,7 @@ export default function Products() {
       .then(products => setProducts(products))
       .catch(console.error)
     setRefresh(false);
+    console.log("\nRefresh: ", products);
   }, [refresh, page, sorting]);
 
   useEffect(() => {
@@ -42,11 +43,12 @@ export default function Products() {
       update_quantity()
     }
   }, [submit])
+  //console.log("\nProducts: ", products)
 
   async function update_quantity(): Promise<void> {
     try {
       if (submit == true && cart.length > 0) {
-        const id = cart[0].product_id;
+        const id = cart[0].id;
         const quantity = cart[0].selected_quantity;
 
         await invoke<any>('checkout', { productId: id, quantity: quantity })
@@ -64,8 +66,6 @@ export default function Products() {
   };
 
   //TODO
-  // When the user clicks twice the sorting must change order
-
   // JavaScript doesn't have a dedicated type for arrays; 
   // Instead, it uses objects with numeric keys and a length property to simulate array behavior. 
   // This is a reliable way to know if something is an array
@@ -78,7 +78,7 @@ export default function Products() {
       max-w-7xl mx-auto">
       <div className="flex flex-col w-full min-h-screen">
         <ProductHeader productCount={products && products.length} />
-        <div className="flex flex-col w-full flex-grow z-0">
+        <div className="flex flex-col w-full flex-grow ">
           <div className="flex flex-row justify-between rounded-lg border-2 border-stone-700 bg-gradient-to-br from-zinc-800 to-zinc-900 overflow-hidden rounded-lg mb-5 overflow-hidden shadow-md dark:shadow-none dark:bg-gray-800">
             <button
               onClick={() => setSorting((prev) => {

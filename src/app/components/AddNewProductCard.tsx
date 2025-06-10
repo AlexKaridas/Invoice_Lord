@@ -1,17 +1,16 @@
 import { FormEvent } from "react";
-import { AddNewProductCardProps } from "../types"
+import { NewProduct, AddNewProductCardProps } from "../types"
 import { useState, useEffect } from "react";
-import { Product } from "../types";
 import { invoke } from "@tauri-apps/api/core";
 
 export default function AddNewProductCard({ products_length, setAddNewProduct, setRefresh }: AddNewProductCardProps) {
-  const [new_product, setNewProduct] = useState<Product>({
-    product_id: 1,
-    name: "Insert Product Name",
-    description: "Insert Product Description",
-    price: 0,
-    quantity: 0,
-    image: "https://karanzi.websites.co.in/obaju-turquoise/img/product-placeholder.png",
+  const [new_product, setNewProduct] = useState<NewProduct>({
+    name: null,
+    description: '',
+    price: null,
+    tax: 24,
+    quantity: null,
+    image: "no_image",
   });
   const [submit_new_product, setSubmitNewProduct] = useState<boolean>(false);
 
@@ -25,8 +24,8 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
         ...prev,
         product_id: products_length + 1,
       }));
-      setRefresh(true);
       setAddNewProduct(false);
+      setRefresh(true);
     } catch (err) {
       console.error(err);
       setSubmitNewProduct(false);
@@ -49,6 +48,8 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
     }
   }, [submit_new_product])
 
+  // Required
+  const isFormEmpty = !new_product.name || !new_product.price || !new_product.quantity;
 
   return (
     <form
@@ -64,7 +65,6 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
               image: e.target.value,
             }))
           }}
-          required={true}
           className="mb-3 inset-ring inset-ring-blue-300 p-2" />
         {/* Background glow effect */}
         < div
@@ -93,7 +93,6 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
               description: e.target.value,
             }))
           }}
-            required={true}
             className="resize-none mt-2 w-full inset-ring inset-ring-blue-300 p-2" />
         </p>
       </div>
@@ -126,10 +125,14 @@ export default function AddNewProductCard({ products_length, setAddNewProduct, s
           </span>
         </p>
       </div>
-
       {/*Add and Cancel buttons*/}
       <div className="w-full flex justify-between mt-5">
-        <button onClick={() => setSubmitNewProduct(true)} className="flex items-center justify-center text-center font-bold bg-blue-600 px-4 py-1 rounded-sm">
+        <button
+          onClick={() => setSubmitNewProduct(true)}
+          disabled={isFormEmpty}
+          className={`flex items-center justify-center text-center font-bold px-4 py-1 rounded-sm ${isFormEmpty ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+            }`}
+        >
           <p>Add</p>
         </button>
         <button onClick={() => setAddNewProduct(false)} className="flex items-center justify-center text-center text-black font-bold bg-white px-4 py-1 rounded-sm">

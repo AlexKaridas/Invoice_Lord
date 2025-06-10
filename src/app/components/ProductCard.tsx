@@ -2,11 +2,14 @@ import { Product } from "../types";
 import { Dispatch, SetStateAction } from 'react';
 
 export default function ProductCard({ product, setSelected, dark_mode }: { product: Product, setSelected: Dispatch<SetStateAction<Product | null>>, dark_mode: boolean }) {
+  let product_image = product.image === "no_image" ? "/product-placeholder.png" : product.image;
+
   if (dark_mode) {
+
     return (
       <button
         onClick={() => setSelected(product)}
-        key={product.product_id}
+        key={product.id}
         className="h-80 relative flex flex-col items-center max-w-sm w-full p-4 rounded-2xl bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-stone-600 shadow-lg shadow-black/40 overflow-hidden transition-all duration-300 ease-in-out hover:border-stone-500 hover:shadow-xl hover:-translate-y-1.5 ">
         {/* Image Area */}
         <div className="w-full flex justify-center mb-4 relative">
@@ -15,7 +18,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
             className="absolute inset-0 rounded-lg bg-stone-400 opacity-0 transition-opacity duration-300 blur-2xl pointer-events-none"></div>
           {/* Image */}
           <img
-            src={product.image}
+            src={product_image}
             alt={product.name}
             className="
         w-32 h-32
@@ -55,7 +58,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         mt-1 /* Ensure some space below heading */
       "
           >
-            ID: {product.product_id}
+            ID: {product.id}
           </p>
         </div>
 
@@ -83,7 +86,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
     return (
       <button
         onClick={() => setSelected(product)}
-        key={product.product_id}
+        key={product.id}
         className="
     relative
     flex flex-col items-center
@@ -114,7 +117,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
           ></div>
 
           <img
-            src={product.image}
+            src={product_image}
             alt={product.name}
             className="
         w-32 h-32
@@ -151,7 +154,7 @@ export default function ProductCard({ product, setSelected, dark_mode }: { produ
         mb-3
       "
           >
-            ID: {product.product_id}
+            ID: {product.id}
           </p>
         </div>
         <div className="w-11/12 border-t-2 border-yellow-700 my-1"></div>

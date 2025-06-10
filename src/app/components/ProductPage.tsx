@@ -11,19 +11,23 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     name: false,
     description: false,
     price: false,
+    tax: false,
     quantity: false
   });
   const [input_value, setInputValue] = useState<formData>({
-    product_id: product.product_id,
+    id: product.id,
     name: product.name,
     description: product.description,
     price: Number(product.price),
+    tax: Number(product.tax),
     quantity: Number(product.quantity),
   });
   const [edit_submit, setEditSubmit] = useState<boolean>(false);
   const [remove_product, setRemoveProduct] = useState<boolean>(false);
 
   const name: string = product?.name.replace(/[^a-zA-Z0-9\s]/g, "") as string;
+  let product_image = product.image === "no_image" ? "/product-placeholder.png" : product.image;
+
 
   useEffect(() => {
     console.log("\n\tEdit Product useEffect");
@@ -35,21 +39,23 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
         name: false,
         description: false,
         price: false,
+        tax: false,
         quantity: false
       });
       setInputValue({
-        product_id: product.product_id,
+        id: product.id,
         name: product.name,
         description: product.description,
         price: Number(product.price),
+        tax: Number(product.tax),
         quantity: Number(product.quantity),
       });
     }
   }, [edit_submit, product])
 
   useEffect(() => {
-    if (remove_product === true && product.product_id != null) {
-      invoke<String>('remove_product', { productId: product.product_id })
+    if (remove_product === true && product.id != null) {
+      invoke<String>('remove_product', { productId: product.id })
         .then(result => console.log("\nResult from remove_product:", result))
         .catch(console.error)
       setRemoveProduct(false);
@@ -63,7 +69,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   async function edit_product() {
     try {
       if (edit_submit === true) {
-        console.log("\nEditing product\n");
+        console.log("\nEditing product:", input_value.id);
         await invoke('edit_product', { product: input_value });
         clean();
       } else if (typeof (!input_value.price) === "number") {
@@ -78,9 +84,9 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   function addToCart(product: Product) {
     try {
       setCart((prev) => {
-        const product_exists = prev.find(item => item.product_id === product.product_id);
+        const product_exists = prev.find(item => item.id === product.id);
         if (product_exists) {
-          return prev.map(item => item.product_id === product.product_id ? { ...item, selected_quantity: (item.selected_quantity || 0) + 1 } : item)
+          return prev.map(item => item.id === product.id ? { ...item, selected_quantity: (item.selected_quantity || 0) + 1 } : item)
         } else {
           return [...prev, { ...product, selected_quantity: 1 }];
         }
@@ -90,9 +96,9 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
     }
   }
 
-  function removeFromCart(product_id: cart_product["product_id"]) {
+  function removeFromCart(id: cart_product["id"]) {
     try {
-      setCart((prev) => prev.filter(product => product.product_id !== product_id));
+      setCart((prev) => prev.filter(product => product.id !== id));
     } catch (error) {
       console.error("Error trying to remove from cart in ProductPage:", error);
     }
@@ -110,13 +116,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
       name: false,
       description: false,
       price: false,
+      tax: false,
       quantity: false
     });
     setInputValue({
-      product_id: product.product_id,
+      id: product.id,
       name: product.name,
       description: product.description,
       price: Number(product.price),
+      tax: Number(product.tax),
       quantity: Number(product.quantity),
     });
     setSelected(null);
@@ -136,7 +144,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   }
 
   return (
-    <div className="relative w-full flex flex-row-reverse items-start justify-center p-4">
+    <div className="relative w-full flex flex-row-reverse items-start justify-center p-4 z-30">
       <div className="relative w-full max-w-xl bg-gray-900 rounded-2xl overflow-hidden sticky top-4">
         <div className="bg-gray-800 rounded-2xl overflow-hidden">
           <div className="relative w-full aspect-w-16 aspect-h-9">
@@ -148,20 +156,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            {product?.image ? (
-              <div className="flex relative w-full h-96 items-center">
+            {product?.image &&
+              <div className="flex relative object-cover w-full h-full items-center justify-center">
                 <img
-                  src={product.image}
+                  src={product_image}
                   alt={product.name}
-                  loading="lazy"
-                  className="flex relative object-cover rounded-2xl transition-transform duration-300"
+                  className="flex relative object-cover rounded-2xl transition-transform duration-300 w-full"
                 />
               </div>
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-2xl">
-                <span className="text-gray-300 text-lg font-semibold">No Image Available</span>
-              </div>
-            )}
+            }
           </div>
         </div>
         {!edit ?
@@ -171,6 +174,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 setEdit(!edit), setCategory({
                   name: false,
                   description: false,
+                  tax: false,
                   price: false,
                   quantity: false
                 }
@@ -191,9 +195,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
               {product?.description}
             </p>
             <div className="flex flex-row items-center justify-between">
+
               {/*Price*/}
               <p className="flex gap-4 items-center text-xl font-semibold text-green-300">
                 ${product?.price}<span className="text-sm text-green-100">Price</span>
+              </p>
+
+              {/*Tax*/}
+              <p className="flex gap-4 items-center text-xl font-semibold text-blue-100">
+                {product?.tax}%<span className="text-sm text-green-100">Tax</span>
               </p>
 
               {/*Quantity*/}
@@ -217,12 +227,12 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                   Add to Cart
                 </button>
                 <button
-                  onClick={() => removeFromCart(product.product_id)}
+                  onClick={() => removeFromCart(product.id)}
                   className={`
               w-full font-medium py-3 rounded-lg 
               shadow-md transition duration-300 ease-in-out
               ${!
-                      cart.find(item => item.product_id === product.product_id)
+                      cart.find(item => item.id === product.id)
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       : 'active:bg-red-800 bg-red-600 text-white focus:ring-red-400 hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2  focus:ring-offset-2 '
                     }`}
@@ -257,6 +267,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                   name: false,
                   description: false,
                   price: false,
+                  tax: false,
                   quantity: false
                 }
                 )
@@ -325,6 +336,27 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 className="w-[30%] px-2 py-1 rounded-sm text-xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
               />
 
+              {/*Tax*/}
+              <input
+                type="number"
+                maxLength={1000}
+                placeholder={`${product.tax}`}
+                value={input_value.tax}
+                name="tax"
+                onChange={
+                  (e) => {
+                    setInputValue((prev) => ({
+                      ...prev,
+                      tax: Number(e.target.value),
+                    }))
+                    change_state('tax')
+                  }
+                }
+                min="0"
+                className="w-[30%] px-2 py-1  rounded-sm text-xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
+              />
+
+              {/*Quantity*/}
               <input
                 type="number"
                 maxLength={1000}
@@ -343,13 +375,15 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
                 min="0"
                 className="w-[30%] px-2 py-1  rounded-sm text-xl overflow-scroll text-white bg-gray-900 bg-transparent border-none border-gray-100 inset-ring inset-ring-blue-300 focus:outline-none focus:inset-ring-purple-400 focus:border-transparent placeholder-gray-400 transition-all duration-300"
               />
+
+
             </div>
 
-            {/*Submit cancel buttons */}
+            {/*Submit buttons */}
             <div className="w-full flex flex-row gap-5">
               <button
                 onClick={() => {
-                  if (!category.name && !category.description && !category.price && !category.quantity) {
+                  if (!category.name && !category.description && !category.price && !category.tax && !category.quantity) {
                     return;
                   }
                   setEditSubmit(true);
@@ -359,7 +393,7 @@ export default function ProductPage({ product, cart, setCart, setIsCartOpen, isC
   hover:bg-green-700 hover:shadow-lg 
   focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 
   active:bg-green-800 
-  ${(!category.name && !category.description && !category.price && !category.quantity)
+  ${(!category.name && !category.description && !category.price && !category.tax && !category.quantity)
                     ? "cursor-not-allowed pointer-events-none bg-gray-700"
                     : "cursor-pointer bg-green-600"
                   }`}
